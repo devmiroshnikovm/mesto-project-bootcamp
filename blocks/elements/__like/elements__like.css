@@ -3,3 +3,7 @@
   height: 19px;
   object-fit: cover;
 }
+
+.elements__like:hover {
+  opacity: 50%;
+}

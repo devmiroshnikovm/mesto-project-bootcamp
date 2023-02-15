@@ -22,3 +22,7 @@
     height: 50px;
   }
 }
+
+.profile__add:hover {
+  opacity: 60%;
+}

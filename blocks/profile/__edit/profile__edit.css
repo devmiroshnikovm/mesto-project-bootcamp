@@ -14,3 +14,7 @@
     height: 18px;
   }
 }
+
+.profile__edit:hover {
+  opacity: 60%;
+}
