@@ -1,0 +1,11 @@
+.elements {
+  width: calc((880 / 1280) * 100%);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 282px);
+  grid-auto-flow: row;
+  justify-content: center;
+
+  row-gap: 20px;
+  column-gap: 17px;
+}

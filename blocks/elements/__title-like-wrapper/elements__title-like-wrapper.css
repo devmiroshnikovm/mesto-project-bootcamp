@@ -1,0 +1,10 @@
+.elements__title-like-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+
+  outline: 1px solid red;
+  min-height: 79px;
+}

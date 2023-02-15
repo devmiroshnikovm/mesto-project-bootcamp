@@ -1,0 +1,10 @@
+.header__line {
+  margin-top: 0;
+  margin-left: 0;
+  margin-bottom: 40px;
+  margin-right: 0;
+  padding: 0;
+
+  width: 100%;
+  height: 10px;
+}

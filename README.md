@@ -1,17 +1,52 @@
-# Проект: Место
+## TODO
 
-### Обзор
+### High Priority
 
-* Figma
-* Картинки
+- [] validate
 
-**Figma**
+### Low Priority
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+# My Project
 
-**Картинки**
+This is a sample project that demonstrates adaptive website for devices with screens 1280px, 1024px, 768px, 320px.
+Project based on BEM nasted approach.
+Files structure:
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
+```
 
-Удачи!
+```
+
+## Getting Started
+
+Use git clone to get copy of the project.
+
+### Prerequisites
+
+Live server vscode extension to run project locally.
+
+### Installing
+
+Step by step instructions on how to install the project
+
+1. Clone the repository
+2. Start the server
+
+## Usage
+
+open 127.0.0.1 port 5500 locally or
+
+## Contributing
+
+None
+
+## License
+
+This project is licensed under the MIT License
+
+## Contact
+
+- Email: dev.miroshnikov.m@ya.ru
+
+## Commments
+
+This project is dependent to odering imports css fils in pages.css
