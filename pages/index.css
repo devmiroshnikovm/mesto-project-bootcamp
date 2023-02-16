@@ -11,11 +11,21 @@
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/footer/footer.css);
+@import url(../blocks/form/__button/form__button.css);
+@import url(../blocks/form/__heading/form__heading.css);
+@import url(../blocks/form/__input-container/form__input-container.css);
+@import url(../blocks/form/__item/form__item.css);
+@import url(../blocks/form/form.css);
+@import url(../blocks/form/main-container/form__main-container.css);
 @import url(../blocks/header/__line/header__line.css);
 @import url(../blocks/header/__logo/header__logo.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/page/__content/page__content.css);
 @import url(../blocks/page/page.css);
+@import url(../blocks/popup/__close/popup__close.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__content/popup__content.css);
+@import url(../blocks/popup/popup.css);
 @import url(../blocks/profile/__add/profile__add.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__edit/profile__edit.css);
@@ -24,16 +34,3 @@
 @import url(../blocks/profile/__title/profile__title.css);
 @import url(../blocks/profile/__title-edit-wrapper/profile__title-edit-wrapper.css);
 @import url(../blocks/profile/profile.css);
-* {
-  outline: 1px solid yellowgreen;
-}
-
-::-webkit-scrollbar {
-  height: 10px;
-  width: 10px;
-  background: gray;
-}
-::-webkit-scrollbar-thumb:horizontal {
-  background: red;
-  border-radius: 10px;
-}

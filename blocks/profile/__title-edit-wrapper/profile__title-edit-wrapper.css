@@ -1,7 +1,6 @@
 .profile__title-edit-wrapper {
   display: flex;
   align-items: center;
-  outline: yellowgreen 2px solid;
 }
 @media screen and (max-width: 700px) {
   .profile__title-edit-wrapper {

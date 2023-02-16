@@ -1,0 +1,13 @@
+.form__heading {
+  margin-top: 34px;
+  margin-left: 36px;
+  margin-bottom: 0;
+  margin-right: 0;
+  padding: 0;
+
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-weight: 900;
+
+  font-size: 24px;
+  line-height: 29px;
+}
