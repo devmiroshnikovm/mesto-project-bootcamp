@@ -1,6 +1,6 @@
 .profile__title {
   margin-top: 0;
-  margin-left: 0;
+  margin-left: 8px;
   margin-bottom: 0;
   margin-right: 0;
   padding: 0;
@@ -16,5 +16,6 @@
   .profile__title {
     font-size: 27px;
     line-height: 33px;
+    margin-left: 0;
   }
 }
