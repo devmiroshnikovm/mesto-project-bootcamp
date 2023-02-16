@@ -8,6 +8,7 @@
   background-image: url("./../../../images/plus_1280.svg");
   background-repeat: no-repeat;
   background-position: center;
+  border: 1px solid white;
 }
 
 @media screen and (max-width: 700px) {

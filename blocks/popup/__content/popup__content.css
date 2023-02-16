@@ -10,7 +10,6 @@
   border-radius: 10px;
 
   position: relative;
-  outline: 1px solid red;
 }
 
 @media screen and (max-width: 500px) {
