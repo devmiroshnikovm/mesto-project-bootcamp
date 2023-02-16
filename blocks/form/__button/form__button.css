@@ -1,5 +1,5 @@
 .form__button {
-  margin-top: 48px;
+  margin-top: 47px;
   margin-left: 0;
   margin-bottom: 0;
   margin-right: 0;
@@ -21,4 +21,11 @@
 
 .form__button:hover {
   opacity: 60%;
+}
+
+@media screen and (max-width: 500px) {
+  .form__button {
+    width: 238px;
+    height: 46px;
+  }
 }
