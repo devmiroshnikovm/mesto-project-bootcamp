@@ -1,23 +1,17 @@
-.popup__close {
-  margin: 0;
-  padding: 0;
-
+.popup__button-close {
   position: absolute;
   top: -40px; /* 8px in firma + 32px element inself */
   right: -40px; /* 8px in firma + 32px element inself */
 
-  display: block;
   width: 32px;
   height: 32px;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><path fill="%23FFFFFF" d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z"/></svg>');
-}
-
-.popup__close:hover {
-  opacity: 60%;
+  background-color: transparent;
+  border: none;
 }
 
 @media screen and (max-width: 550px) {
-  .popup__close {
+  .popup__button-close {
     top: -36px; /* 16px in firma + 20px element inself */
     right: 0; /* 8px in firma + 32px element inself */
     width: 20px;

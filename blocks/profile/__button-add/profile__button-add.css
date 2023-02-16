@@ -1,28 +1,20 @@
-.profile__add {
-  margin-top: 0;
+.profile__button-add {
   margin-left: auto; /* прижать элемент к правому краю */
-  margin-bottom: 0;
-  margin-right: 0;
 
   width: 150px;
   height: 50px;
-  border: 1px solid white;
 
-  padding: 0;
-  font: inherit;
-  color: inherit;
   background-color: transparent;
-  cursor: pointer;
+  background-image: url("./../../../images/plus_1280.svg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @media screen and (max-width: 700px) {
-  .profile__add {
+  .profile__button-add {
     margin-left: 0;
     width: 282px;
     height: 50px;
+    background-image: url("./../../../images/plus_320.svg");
   }
-}
-
-.profile__add:hover {
-  opacity: 60%;
 }
