@@ -2,7 +2,7 @@
 
 ### High Priority
 
-- [] validate
+- [x] validate
 
 ### Low Priority
 
