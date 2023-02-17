@@ -3,11 +3,19 @@
   flex-direction: column;
 
   margin-left: calc((30 / 1280) * 100%);
+  outline: 1px solid red;
 }
 
 @media screen and (max-width: 700px) {
   .profile__info {
     margin-left: 0;
     align-items: center;
+    width: 282px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__info {
+    align-items: flex-start;
   }
 }

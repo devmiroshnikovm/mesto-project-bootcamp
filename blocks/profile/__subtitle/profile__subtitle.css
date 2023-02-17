@@ -16,14 +16,20 @@
 
 @media screen and (max-width: 950px) {
   .profile__subtitle {
-    text-align: center;
-    margin-top: 14px;
-    margin-bottom: 36px;
+    margin-top: 8px;
+    margin-bottom: 32px;
     margin-left: 0;
 
     font-size: 14px;
     line-height: 17px;
 
-    min-width: 282px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__subtitle {
+    margin-left: 60px;
+    text-align: 0;
   }
 }
