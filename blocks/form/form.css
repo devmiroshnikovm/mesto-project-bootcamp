@@ -13,8 +13,6 @@
   align-items: center;
 
   width: calc((358 / 430) * 100%);
-
-  outline: 1px solid red;
 }
 
 @media screen and (max-width: 320px) {
