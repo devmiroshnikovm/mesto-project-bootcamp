@@ -9,5 +9,7 @@
   top: 0;
   left: 0;
 
-  display: none;
+  display: none; /* flex in normal way */
+  justify-content: center;
+  align-items: center;
 }

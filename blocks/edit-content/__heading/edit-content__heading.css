@@ -1,7 +1,7 @@
-.form__heading {
+.edit-content__heading {
   margin-top: 34px;
-  margin-left: 0;
-  margin-bottom: 20px;
+  margin-left: 36px;
+  margin-bottom: 0;
   margin-right: 0;
   padding: 0;
 
@@ -13,7 +13,10 @@
 }
 
 @media screen and (max-width: 500px) {
-  .form__heading {
+  .edit-content__heading {
+    margin-left: 22px;
+    margin-top: 25px;
+
     font-size: 18px;
     line-height: 22px;
   }

@@ -9,14 +9,13 @@
 
     <title>Mesto</title>
 
-    <link rel="stylesheet" href="pages/index.css" />
+    <link rel="stylesheet" href="./pages/index.css" />
   </head>
 
   <body class="page">
     <div class="page__content">
       <header class="header">
         <img src="./images/logo.svg" alt="картинка лого" class="header__logo" />
-        <img src="./images/Line.svg" alt="картинка линия" class="header__line" />
       </header>
 
       <main class="content">
@@ -27,61 +26,61 @@
             <div class="profile__title-edit-wrapper">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
 
-              <button class="button profile__button-edit"></button>
+              <button class="button profile__button-edit" type="button"></button>
             </div>
 
             <p class="profile__subtitle">Исследователь&nbsp;океана</p>
           </div>
 
-          <button class="button profile__button-add"></button>
+          <button class="button profile__button-add" type="submit"></button>
         </section>
 
         <section class="elements">
           <div class="elements__item">
-            <img src="./images/1.jpg" alt="картинка 1" class="elements__img" />
+            <img src="./images/1.jpg" alt="картинка Карачаевск" class="elements__img" />
             <div class="elements__title-like-wrapper">
               <h2 class="elements__title">Карачаевск</h2>
-              <button class="button elements__button-like"></button>
+              <button class="button elements__button-like" type="button"></button>
             </div>
           </div>
 
           <div class="elements__item">
-            <img src="./images/2.jpg" alt="картинка 1" class="elements__img" />
+            <img src="./images/2.jpg" alt="картинка Гора Эльбрус" class="elements__img" />
             <div class="elements__title-like-wrapper">
               <h2 class="elements__title">Гора Эльбрус</h2>
-              <button class="button elements__button-like"></button>
+              <button class="button elements__button-like" type="button"></button>
             </div>
           </div>
 
           <div class="elements__item">
-            <img src="./images/3.jpg" alt="картинка 1" class="elements__img" />
+            <img src="./images/3.jpg" alt="картинка Домбай" class="elements__img" />
             <div class="elements__title-like-wrapper">
               <h2 class="elements__title">Домбай</h2>
-              <button class="button elements__button-like"></button>
+              <button class="button elements__button-like" type="button"></button>
             </div>
           </div>
 
           <div class="elements__item">
-            <img src="./images/1.jpg" alt="картинка 1" class="elements__img" />
+            <img src="./images/1.jpg" alt="картинка Гора Эльбрус" class="elements__img" />
             <div class="elements__title-like-wrapper">
               <h2 class="elements__title">Гора Эльбрус</h2>
-              <button class="button elements__button-like"></button>
+              <button class="button elements__button-like" type="button"></button>
             </div>
           </div>
 
           <div class="elements__item">
-            <img src="./images/2.jpg" alt="картинка 1" class="elements__img" />
+            <img src="./images/2.jpg" alt="картинка Домбай" class="elements__img" />
             <div class="elements__title-like-wrapper">
               <h2 class="elements__title">Домбай</h2>
-              <button class="button elements__button-like"></button>
+              <button class="button elements__button-like" type="button"></button>
             </div>
           </div>
 
           <div class="elements__item">
-            <img src="./images/3.jpg" alt="картинка 1" class="elements__img" />
+            <img src="./images/3.jpg" alt="картинка Карачаевск" class="elements__img" />
             <div class="elements__title-like-wrapper">
               <h2 class="elements__title">Карачаево-Чоплоплорплорплорплорплорплоплорплорплорплоп</h2>
-              <button class="button elements__button-like"></button>
+              <button class="button elements__button-like" type="button"></button>
             </div>
           </div>
         </section>
@@ -93,17 +92,15 @@
     </div>
     <div class="popup">
       <div class="popup__container">
-        <div class="popup__content">
-          <button class="button popup__button-close"></button>
-
-          <div class="form__main-container">
-            <fieldset class="form__input-container">
-              <h2 class="form__heading">Редактировать профиль</h2>
-              <input type="text" class="form__item" id="name" name="name" placeholder="Жак-Ив Кусто" required />
-              <input type="text" class="form__item" id="profession" name="profession" placeholder="Исследователь океана" required />
-              <button class="button form__button">Сохранить</button>
-            </fieldset>
-          </div>
+        <button class="button popup__button-close" type="button"></button>
+        <!-- задаем ширину и высоту модального окна - модальных окон может быть много - edit-content - отдельный блок -->
+        <div class="edit-content">
+          <h2 class="edit-content__heading">Редактировать профиль</h2>
+          <form class="form">
+            <input type="text" class="form__item" id="name" name="name" placeholder="Имя" required />
+            <input type="text" class="form__item" id="profession" name="profession" placeholder="Профессия" required />
+            <button class="button form__button">Сохранить</button>
+          </form>
         </div>
       </div>
     </div>

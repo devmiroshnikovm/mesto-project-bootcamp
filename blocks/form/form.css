@@ -1,2 +1,25 @@
 .form {
+  margin-top: 17px;
+  margin-left: 36px;
+  margin-bottom: 0;
+  margin-right: 0;
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: calc((358 / 430) * 100%);
+
+  outline: 1px solid red;
+}
+
+@media screen and (max-width: 320px) {
+  .form {
+    margin-left: 22px;
+    margin-top: 47px;
+  }
 }

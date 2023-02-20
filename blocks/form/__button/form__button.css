@@ -6,7 +6,7 @@
 
   width: 358px;
   height: 50px;
-  background-color: #000000;
+  background-color: rgba(1, 0, 0, 1);
   color: white;
 }
 
@@ -15,4 +15,15 @@
     width: 238px;
     height: 46px;
   }
+}
+
+@media screen and (max-width: 320px) {
+  .form__button {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+.form__button:hover {
+  opacity: 1;
+  background-color: rgba(1, 0, 0, 0.5);
 }
