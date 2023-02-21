@@ -13,6 +13,7 @@ const profileName = document.querySelector(".profile__title")
 const profileProfession = document.querySelector(".profile__subtitle")
 
 const popup = document.querySelector(".popup")
+const popupNewItem = document.querySelector(".popup_item_new")
 
 const formElement = document.querySelector(".form")
 const nameInput = formElement.querySelector('input.form__item[name="name"]')
@@ -20,14 +21,20 @@ const jobInput = formElement.querySelector('input.form__item[name="job"]')
 /* variables */
 
 /* functions */
+
+function openPopup(_popup) {
+  _popup.classList.add("popup_opened")
+}
+
 function clearPopapInputs() {
   nameInput.value = profileName.textContent
   jobInput.value = profileProfession.textContent
 }
 
-function closePopup() {
-  if (popup.classList.contains("popup_opened")) {
-    popup.classList.remove("popup_opened")
+function closePopup(_event) {
+  const _popup = _event.target.closest(".popup")
+  if (_popup.classList.contains("popup_opened")) {
+    _popup.classList.remove("popup_opened")
     clearPopapInputs()
   } else {
     alert("class popup_opened not found")
@@ -89,11 +96,11 @@ function addNewItem(name, link) {
 /* functions */
 
 /* event listners */
-buttonEditProfile.addEventListener("click", function () {
-  popup.classList.add("popup_opened")
-})
+buttonEditProfile.addEventListener("click", () => openPopup(popup))
+buttonAddContent.addEventListener("click", () => openPopup(popupNewItem))
 
-buttonPopupEditProfileClose.addEventListener("click", closePopup)
+buttonPopupEditProfileClose.addEventListener("click", (event) => closePopup(event))
+buttonPopupNewItemClose.addEventListener("click", (event) => closePopup(event))
 
 buttonsLikeList.forEach(addListnerToLikeButton) //add likes
 buttonsTrashList.forEach(addListnerToTrashButton) //add trash reaction
