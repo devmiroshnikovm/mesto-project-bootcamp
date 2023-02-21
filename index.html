@@ -41,46 +41,7 @@
             <div class="elements__title-like-wrapper">
               <h2 class="elements__title">Карачаевск</h2>
               <button class="button elements__button-like" type="button"></button>
-            </div>
-          </div>
-
-          <div class="elements__item">
-            <img src="./images/2.jpg" alt="картинка Гора Эльбрус" class="elements__img" />
-            <div class="elements__title-like-wrapper">
-              <h2 class="elements__title">Гора Эльбрус</h2>
-              <button class="button elements__button-like" type="button"></button>
-            </div>
-          </div>
-
-          <div class="elements__item">
-            <img src="./images/3.jpg" alt="картинка Домбай" class="elements__img" />
-            <div class="elements__title-like-wrapper">
-              <h2 class="elements__title">Домбай</h2>
-              <button class="button elements__button-like" type="button"></button>
-            </div>
-          </div>
-
-          <div class="elements__item">
-            <img src="./images/1.jpg" alt="картинка Гора Эльбрус" class="elements__img" />
-            <div class="elements__title-like-wrapper">
-              <h2 class="elements__title">Гора Эльбрус</h2>
-              <button class="button elements__button-like" type="button"></button>
-            </div>
-          </div>
-
-          <div class="elements__item">
-            <img src="./images/2.jpg" alt="картинка Домбай" class="elements__img" />
-            <div class="elements__title-like-wrapper">
-              <h2 class="elements__title">Домбай</h2>
-              <button class="button elements__button-like" type="button"></button>
-            </div>
-          </div>
-
-          <div class="elements__item">
-            <img src="./images/3.jpg" alt="картинка Карачаевск" class="elements__img" />
-            <div class="elements__title-like-wrapper">
-              <h2 class="elements__title">Карачаево-Чоплоплорплорплорплорплорплоплорплорплорплоп</h2>
-              <button class="button elements__button-like" type="button"></button>
+              <button class="button elements__button-trash" type="button"></button>
             </div>
           </div>
         </section>
@@ -98,13 +59,38 @@
           <h2 class="edit-content__heading">Редактировать профиль</h2>
           <form class="form">
             <input type="text" class="form__item" id="name" name="name" placeholder="Имя" required />
-            <input type="text" class="form__item" id="profession" name="profession" placeholder="Профессия" required />
+            <input type="text" class="form__item" id="job" name="job" placeholder="Профессия" required />
             <button class="button form__button">Сохранить</button>
           </form>
         </div>
       </div>
     </div>
 
-    <script src="index.js"></script>
+    <div class="popup">
+      <div class="popup__container">
+        <button class="button popup__button-close popup__button-close_item_new" type="button"></button>
+        <div class="edit-content">
+          <h2 class="edit-content__heading">Новое место</h2>
+          <form class="form">
+            <input type="text" class="form__item" id="image_name" name="image_name" placeholder="Название" required />
+            <input type="text" class="form__item" id="link" name="link" placeholder="Ссылка на картинку" required />
+            <button class="button form__button">Сохранить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <template id="item-template">
+      <div class="elements__item">
+        <img src="./images/2.jpg" alt="картинка Гора Эльбрус" class="elements__img" />
+        <div class="elements__title-like-wrapper">
+          <h2 class="elements__title">Гора Эльбрус</h2>
+          <button class="button elements__button-like" type="button"></button>
+          <button class="button elements__button-trash" type="button"></button>
+        </div>
+      </div>
+    </template>
+
+    <script type="module" src="index.js"></script>
   </body>
 </html>

@@ -1,0 +1,19 @@
+.elements__button-trash {
+  /* кнопка 18 на 19 */
+  width: 18px;
+  height: 19px;
+  object-fit: cover;
+
+  background-color: transparent;
+  background-image: url("./../../../images/Trash.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.elements__button-trash:hover {
+  opacity: 50%;
+}
