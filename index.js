@@ -1,6 +1,7 @@
 import { initialCards } from "./consts.js"
 
 /* variables */
+
 const buttonEditProfile = document.querySelector(".button.profile__button-edit")
 const buttonPopupEditProfileClose = document.querySelector(".button.popup__button-close")
 const buttonAddContent = document.querySelector(".profile__button-add")
@@ -12,12 +13,20 @@ const buttonsTrashList = document.querySelectorAll(".button.elements__button-tra
 const profileName = document.querySelector(".profile__title")
 const profileProfession = document.querySelector(".profile__subtitle")
 
+//popup - edit
 const popup = document.querySelector(".popup")
-const popupNewItem = document.querySelector(".popup_item_new")
-
-const formElement = document.querySelector(".form")
+const formElement = popup.querySelector(".form")
 const nameInput = formElement.querySelector('input.form__item[name="name"]')
 const jobInput = formElement.querySelector('input.form__item[name="job"]')
+//popup - edit
+
+//popup - add new item
+const popupNewItem = document.querySelector(".popup_item_new")
+const formElementNewItem = popupNewItem.querySelector(".form")
+const nameNewItemInput = formElementNewItem.querySelector('input.form__item[name="image_name"]')
+const linkNewItemInput = formElementNewItem.querySelector('input.form__item[name="link"]')
+//popup - add new item
+
 /* variables */
 
 /* functions */
@@ -65,6 +74,18 @@ function handleFormSubmit(evt) {
   closePopup()
 }
 
+function handleFormSubmitNewItem(evt) {
+  // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault()
+
+  if (nameNewItemInput.value && linkNewItemInput.value) {
+    addNewItem(nameNewItemInput.value, linkNewItemInput.value)
+    closePopup(evt)
+  } else {
+    alert("enter data")
+  }
+}
+
 function addDefaultValuesToInputs(_popup) {
   if (_popup) {
     nameInput.value = profileName.textContent
@@ -77,42 +98,44 @@ function addDefaultValuesToInputs(_popup) {
 function addNewItem(name, link) {
   // find element to append
   const elementsList = document.querySelector(".elements")
-
   //add data from template
   const itemTemplate = document.querySelector("#item-template").content
-
   // клонируем содержимое тега template
   const newItem = itemTemplate.querySelector(".elements__item").cloneNode(true)
-
   // наполняем содержимым
   newItem.querySelector(".elements__title").textContent = name
   newItem.querySelector(".elements__img").src = link
   addListnerToLikeButton(newItem.querySelector(".elements__button-like"))
   addListnerToTrashButton(newItem.querySelector(".elements__button-trash"))
-
   // отображаем на странице
   elementsList.append(newItem)
 }
+
+function addDefaultValuesToInputsNewItem() {}
 /* functions */
 
 /* event listners */
 buttonEditProfile.addEventListener("click", () => openPopup(popup))
-buttonAddContent.addEventListener("click", () => openPopup(popupNewItem))
-
+buttonAddContent.addEventListener("click", () => {
+  nameNewItemInput.value = null //обнуляем input value если пользователь не сохранил введенные данные - обнуляем всегда при открытии popup
+  linkNewItemInput.value = null //обнуляем input value если пользователь не сохранил введенные данные - обнуляем всегда при открытии popup
+  // TODO test
+  nameNewItemInput.value = "test_item"
+  linkNewItemInput.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
+  //TODO test
+  openPopup(popupNewItem)
+})
 buttonPopupEditProfileClose.addEventListener("click", (event) => closePopup(event))
 buttonPopupNewItemClose.addEventListener("click", (event) => closePopup(event))
-
 buttonsLikeList.forEach(addListnerToLikeButton) //add likes
 buttonsTrashList.forEach(addListnerToTrashButton) //add trash reaction
-
 formElement.addEventListener("submit", handleFormSubmit)
+formElementNewItem.addEventListener("submit", handleFormSubmitNewItem)
 
 /* event listners */
 
 /* main code */
-document.addEventListener("DOMContentLoaded", function () {
-  addDefaultValuesToInputs(popup)
-})
+addDefaultValuesToInputs(popup)
 
 for (let i = 0; i < initialCards.length; i++) {
   addNewItem(initialCards[i].name, initialCards[i].link)
