@@ -6,6 +6,7 @@ const buttonEditProfile = document.querySelector(".button.profile__button-edit")
 const buttonPopupEditProfileClose = document.querySelector(".button.popup__button-close")
 const buttonAddContent = document.querySelector(".profile__button-add")
 const buttonPopupNewItemClose = document.querySelector(".popup__button-close_item_new")
+const buttonPopupScaleImageClose = document.querySelector(".popup__button-close_image")
 
 const buttonsLikeList = document.querySelectorAll(".button.elements__button-like")
 const buttonsTrashList = document.querySelectorAll(".button.elements__button-trash")
@@ -26,6 +27,10 @@ const formElementNewItem = popupNewItem.querySelector(".form")
 const nameNewItemInput = formElementNewItem.querySelector('input.form__item[name="image_name"]')
 const linkNewItemInput = formElementNewItem.querySelector('input.form__item[name="link"]')
 //popup - add new item
+
+//popup - scale screen image
+const popupScaleImage = document.querySelector(".popup_image")
+//popup - full screen image
 
 //add items
 const elementsList = document.querySelector(".elements") // find element to append
@@ -129,6 +134,8 @@ buttonAddContent.addEventListener("click", () => {
 })
 buttonPopupEditProfileClose.addEventListener("click", (event) => closePopup(event))
 buttonPopupNewItemClose.addEventListener("click", (event) => closePopup(event))
+buttonPopupScaleImageClose.addEventListener("click", (event) => closePopup(event))
+
 buttonsLikeList.forEach(addListnerToLikeButton) //add likes
 buttonsTrashList.forEach(addListnerToTrashButton) //add trash reaction
 formElement.addEventListener("submit", handleFormSubmit)

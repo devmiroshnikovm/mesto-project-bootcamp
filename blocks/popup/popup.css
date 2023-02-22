@@ -9,7 +9,10 @@
   top: 0;
   left: 0;
 
-  display: none; /* flex in normal way */
+  visibility: hidden; /* flex in normal way */
+  opacity: 0;
+  transition: visibility 0s, opacity 1s linear;
+
   justify-content: center;
   align-items: center;
 }
