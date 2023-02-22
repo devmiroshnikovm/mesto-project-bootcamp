@@ -49,3 +49,26 @@ usersOnline.append(userElement)
     </template>
 
     */
+
+function addNewItem(name, link) {
+  // клонируем содержимое тега template
+  const newItem = itemTemplate.querySelector(".elements__item").cloneNode(true)
+  // наполняем содержимым
+  newItem.querySelector(".elements__title").textContent = name
+  newItem.querySelector(".elements__img").src = link
+  addListnerToLikeButton(newItem.querySelector(".elements__button-like")) //cloneNode не копирует listners
+  addListnerToTrashButton(newItem.querySelector(".elements__button-trash")) //cloneNode не копирует listners
+  // отображаем на странице
+  elementsList.prepend(newItem)
+}
+
+function makeSafeModificationAddNewItem(wrapped) {
+  return function () {
+    const originalAppend = elementsList.append.bind(elementsList)
+    elementsList.append = elementsList.prepend // Replace append method with prepend
+    wrapped.apply(this, arguments)
+    elementsList.append = originalAppend // Restore original append method
+  }
+}
+
+const safeAddNewItem = makeSafeModificationAddNewItem(addNewItem)

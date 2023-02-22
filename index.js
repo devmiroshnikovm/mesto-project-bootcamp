@@ -27,6 +27,10 @@ const nameNewItemInput = formElementNewItem.querySelector('input.form__item[name
 const linkNewItemInput = formElementNewItem.querySelector('input.form__item[name="link"]')
 //popup - add new item
 
+//add items
+const elementsList = document.querySelector(".elements") // find element to append
+const itemTemplate = document.querySelector("#item-template").content //add data from template
+
 /* variables */
 
 /* functions */
@@ -79,7 +83,7 @@ function handleFormSubmitNewItem(evt) {
   evt.preventDefault()
 
   if (nameNewItemInput.value && linkNewItemInput.value) {
-    addNewItem(nameNewItemInput.value, linkNewItemInput.value)
+    addNewItem(nameNewItemInput.value, linkNewItemInput.value, false)
     closePopup(evt)
   } else {
     alert("enter data")
@@ -95,23 +99,21 @@ function addDefaultValuesToInputs(_popup) {
   }
 }
 
-function addNewItem(name, link) {
-  // find element to append
-  const elementsList = document.querySelector(".elements")
-  //add data from template
-  const itemTemplate = document.querySelector("#item-template").content
+function addNewItem(_name, _link, _orderLast) {
   // клонируем содержимое тега template
   const newItem = itemTemplate.querySelector(".elements__item").cloneNode(true)
   // наполняем содержимым
-  newItem.querySelector(".elements__title").textContent = name
-  newItem.querySelector(".elements__img").src = link
-  addListnerToLikeButton(newItem.querySelector(".elements__button-like"))
-  addListnerToTrashButton(newItem.querySelector(".elements__button-trash"))
+  newItem.querySelector(".elements__title").textContent = _name
+  newItem.querySelector(".elements__img").src = _link
+  addListnerToLikeButton(newItem.querySelector(".elements__button-like")) //cloneNode не копирует listners
+  addListnerToTrashButton(newItem.querySelector(".elements__button-trash")) //cloneNode не копирует listners
   // отображаем на странице
-  elementsList.append(newItem)
+  if (_orderLast === true) {
+    elementsList.append(newItem)
+  } else if (_orderLast === false) {
+    elementsList.prepend(newItem)
+  }
 }
-
-function addDefaultValuesToInputsNewItem() {}
 /* functions */
 
 /* event listners */
@@ -138,5 +140,5 @@ formElementNewItem.addEventListener("submit", handleFormSubmitNewItem)
 addDefaultValuesToInputs(popup)
 
 for (let i = 0; i < initialCards.length; i++) {
-  addNewItem(initialCards[i].name, initialCards[i].link)
+  addNewItem(initialCards[i].name, initialCards[i].link, true)
 }
