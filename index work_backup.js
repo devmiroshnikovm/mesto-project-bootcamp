@@ -40,36 +40,6 @@ const namePopupImage = popupScaleImage.querySelector(".elements__title_place_pop
 const elementSelector = document.querySelector(".elements") // find element to append
 const itemTemplate = document.querySelector("#item-template").content //add data from template
 
-// берем любой template
-// понимаем что в нем менять
-// и вносим это в объект
-const objTemplateNewItem = [
-  {
-    class: ".elements__title",
-    value: "_name",
-    addListnerFlag: false,
-    attribute: "textContent",
-  },
-  {
-    class: ".elements__img",
-    value: "_link",
-    addListnerFlag: false,
-    attribute: "src",
-  },
-  {
-    class: ".elements__button-like",
-    addListnerFlag: true,
-  },
-  {
-    class: ".elements__button-trash",
-    addListnerFlag: true,
-  },
-  {
-    class: ".elements__img",
-    addListnerFlag: true,
-  },
-]
-
 /* variables */
 
 /* functions */
@@ -130,26 +100,8 @@ function handleFormSubmitNewItem(evt) {
   // Эта строчка отменяет стандартную отправку формы.
   evt.preventDefault()
 
-  // если в input есть что-то
   if (nameNewItemInput.value && linkNewItemInput.value) {
-    //копируем объект с данными из шаблона в новый объект, чтобы модифицировать его введенными данными из формы
-
-    const newObj = [...objTemplateNewItem]
-
-    //так как метод find возвращает ссылку на основной newObj
-    const titleObject = newObj.find((obj) => obj.class === ".elements__title")
-    // при изменении titleObject меняется и основной newObj
-    titleObject.value = nameNewItemInput.value
-
-    // аналогично
-    const imgObject = newObj.find((obj) => obj.class === ".elements__img")
-    imgObject.value = linkNewItemInput.value
-
-    // соответственно вот тут получаем обновленный newObj
-
-    const newItemFromTemplate = addNewUniqueItem("item-template", "elements__item", [addListnerToLikeButton, addListnerToTrashButton, addListnerToImagesInItems], newObj)
-
-    elementSelector.prepend(newItemFromTemplate)
+    addNewItem(nameNewItemInput.value, linkNewItemInput.value, false)
     closePopup(evt)
   } else {
     alert("enter data")
@@ -216,42 +168,4 @@ addDefaultValuesToInputs(popup)
 
 for (let i = 0; i < initialCards.length; i++) {
   addNewItem(initialCards[i].name, initialCards[i].link, true)
-}
-
-// берем функцию и прокидываем в нее:
-// нужный template ID если <template> несколько
-// class в шаблоне, который нужно поменять
-// lisnters на каждый соответствующий элемент. Важна очередность, чтобы нужный listner применился к соответствующему html элементу в шаблоне
-// obj с параметрами что нужно менять
-
-function addNewUniqueItem(_itemTemplateID, _itemClassToClone, _functionAddListner, obj) {
-  // находим template
-  const itemTemplate = document.querySelector("#" + _itemTemplateID).content // #item-template
-
-  // копируем шаблон
-  const newItem = itemTemplate.querySelector("." + _itemClassToClone).cloneNode(true) //.elements__item
-
-  // заполняем шаблон
-
-  // в _functionAddListner лежит массив listners, которые навешиваем на скопированные элементы <template>
-  // если в объекте 3 свойства, а в массив listners передано 2 - вызовет ошибку
-  // нужна строгая очередность передачи listners
-
-  let j = 0
-  for (let i = 0; i < obj.length; i++) {
-    if (obj[i].addListnerFlag == true) {
-      //add listner
-      _functionAddListner[j](newItem.querySelector(obj[i].class))
-      j = j + 1
-    } else if (obj[i].addListnerFlag == false) {
-      // заполнить шаблон
-      let searchClass = obj[i].class
-      let attribute = obj[i].attribute
-      let value = obj[i].value
-
-      newItem.querySelector(searchClass)[attribute] = value
-    }
-  }
-
-  return newItem // return итоговый заполненный обьект
 }

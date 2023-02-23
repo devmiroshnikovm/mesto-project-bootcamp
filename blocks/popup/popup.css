@@ -1,4 +1,6 @@
 .popup {
+  display: flex;
+
   position: fixed;
   overflow: auto;
 
@@ -11,8 +13,16 @@
 
   visibility: hidden; /* flex in normal way */
   opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: visibility 0.5s, opacity 0.5s linear;
 
   justify-content: center;
   align-items: center;
 }
+
+/*
+по хорошему, все должно в обе стороны работать. Проверь чтобы выполнялись эти условия:
+* transition должно находится в основном классе, а не в модификаторе
+    * В нем должны быть перечислены все свойства которые меняет модификатор
+    * У каждого свойства должно быть задано время выполнения анимации отличное от нуля
+    * Если в модификаторе присутствуют свойства которые меняют геометрию (display, height) их нужно перенести в основной класс. Они не анимируются
+*/
