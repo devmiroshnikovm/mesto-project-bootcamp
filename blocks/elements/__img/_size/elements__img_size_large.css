@@ -1,4 +1,10 @@
 .elements__img_size_large {
   height: 100%;
-  object-fit: contain;
 }
+/*
+@media screen and (max-width: 500px) {
+  .elements__img_size_large {
+    object-fit: contain;
+  }
+}
+*/
