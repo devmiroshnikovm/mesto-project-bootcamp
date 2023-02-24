@@ -36,6 +36,7 @@
         </section>
 
         <section class="elements">
+          <!--
           <div class="elements__item">
             <img src="./images/1.jpg" alt="картинка Карачаевск" class="elements__img" />
             <div class="elements__title-like-wrapper">
@@ -44,6 +45,7 @@
               <button class="button elements__button-trash" type="button"></button>
             </div>
           </div>
+          -->
         </section>
       </main>
 
@@ -51,13 +53,12 @@
         <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
     </div>
-    <div class="popup">
+    <div class="popup popup_type_profile">
       <div class="popup__container">
         <button class="button popup__button-close" type="button"></button>
-        <!-- задаем ширину и высоту модального окна - модальных окон может быть много - edit-content - отдельный блок -->
         <div class="edit-content">
           <h2 class="edit-content__heading">Редактировать профиль</h2>
-          <form class="form">
+          <form class="form" name="edit-profile">
             <input type="text" class="form__item" id="name" name="name" placeholder="Имя" autocomplete="off" required />
             <input type="text" class="form__item" id="job" name="job" placeholder="Профессия" autocomplete="off" required />
             <button class="button form__button">Сохранить</button>
@@ -66,12 +67,12 @@
       </div>
     </div>
 
-    <div class="popup popup_item_new">
+    <div class="popup popup_type_new-item">
       <div class="popup__container">
-        <button class="button popup__button-close popup__button-close_item_new" type="button"></button>
+        <button class="button popup__button-close" type="button"></button>
         <div class="edit-content">
           <h2 class="edit-content__heading">Новое место</h2>
-          <form class="form">
+          <form class="form" name="new-item">
             <input type="text" class="form__item" id="image_name" name="image_name" placeholder="Название" autocomplete="off" required />
             <input type="text" class="form__item" id="link" name="link" placeholder="Ссылка на картинку" autocomplete="off" required />
             <button class="button form__button">Сохранить</button>
@@ -80,9 +81,9 @@
       </div>
     </div>
 
-    <div class="popup popup_image">
+    <div class="popup popup_deep popup_type_image">
       <div class="popup__container">
-        <button class="button popup__button-close popup__button-close_image" type="button"></button>
+        <button class="button popup__button-close" type="button"></button>
         <div class="image-content">
           <img src="./images/2.jpg" alt="картинка Карачаевск" class="elements__img elements__img_size_large" />
           <h2 class="elements__title elements__title_place_popup">Карачаевск</h2>
@@ -101,6 +102,6 @@
       </div>
     </template>
 
-    <script type="module" src="index.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

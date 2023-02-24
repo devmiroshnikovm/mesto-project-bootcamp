@@ -234,8 +234,8 @@ buttonAddContent.addEventListener("click", () => {
   nameNewItemInput.value = null //обнуляем input value если пользователь не сохранил введенные данные - обнуляем всегда при открытии popup
   linkNewItemInput.value = null //обнуляем input value если пользователь не сохранил введенные данные - обнуляем всегда при открытии popup
   // TODO test
-  nameNewItemInput.value = "test_item"
-  linkNewItemInput.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
+  //nameNewItemInput.value = "test_item"
+  //linkNewItemInput.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
   //TODO test
   openPopup(popupNewItem)
 })
