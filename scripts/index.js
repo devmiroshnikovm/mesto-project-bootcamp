@@ -80,7 +80,7 @@ function addListnerToTrashButton(button) {
 
 function addListnerToImagesInItems(image) {
   image.addEventListener("click", function (event) {
-    const name = "default name"
+    const name = "default name" //TODO
     // const name = event.target.closest(".elements__title").textContent // null
     // const name = event.target.parentElement.querySelector(".elements__title").textContent //work
     const src = event.target.getAttribute("src")
@@ -88,7 +88,7 @@ function addListnerToImagesInItems(image) {
     nameIncreaseImagePopup.textContent == name
 
     imgIncreaseImagePopup.setAttribute("src", src)
-    imgIncreaseImagePopup.setAttribute("alt", name) // нужен ли alt на раскрытую картинку? наверно нет
+    imgIncreaseImagePopup.setAttribute("alt", name)
     increaseImagePopup.classList.add("popup_opened")
   })
 }
@@ -117,11 +117,47 @@ function handleFormSubmitNewItem(evt) {
     addNewCard(card, false) //addNewCard(card, orderLast)
 
     hideClosestPopup(evt)
+
+    //обнулить после submit inputs
+    nameInputNewItemPopup.value = null
+    linkInputNewItemPopup.value = null
   } else {
     alert("enter data")
   }
 }
 
+function addNewCard(card, orderLast) {
+  const newItem = createCard(card)
+
+  if (orderLast === true) {
+    elementSelector.append(newItem)
+  } else {
+    elementSelector.prepend(newItem)
+  }
+}
+
+function createCard(item) {
+  // клонируем содержимое тега template
+  const cardElement = cardItemInTemplate.cloneNode(true)
+
+  // наполняем содержимым
+
+  // ищем в template нужные html элементы
+  const titleNewItem = cardElement.querySelector(".elements__title")
+  const imageNewItem = cardElement.querySelector(".elements__img")
+  const likeButtonNewItem = cardElement.querySelector(".elements__button-like")
+  const trashButtonNewItem = cardElement.querySelector(".elements__button-trash")
+
+  // заполняем cardElement
+  titleNewItem.textContent = item.name
+  imageNewItem.src = item.link
+  imageNewItem.alt = item.name //добавляем alt на картинку item
+  addListnerToLikeButton(likeButtonNewItem) //cloneNode не копирует listners
+  addListnerToTrashButton(trashButtonNewItem)
+  addListnerToImagesInItems(imageNewItem)
+
+  return cardElement
+}
 /* functions */
 
 /* event listners */
@@ -129,7 +165,7 @@ buttonEditProfile.addEventListener("click", () => openPopup(profilePopup))
 
 buttonAddContent.addEventListener("click", () => {
   // TODO test
-  nameInputNewItemPopup.value = "test_item"
+  //nameInputNewItemPopup.value = "test_item"
   linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
   //TODO test
   openPopup(newItemPopup)
@@ -156,50 +192,3 @@ initialCards.forEach((card) => {
 })
 
 /* main code */
-
-//
-//
-//
-function addNewCard(card, orderLast) {
-  const newItem = createCard(card)
-
-  if (orderLast === true) {
-    elementSelector.append(newItem)
-  } else {
-    elementSelector.prepend(newItem)
-  }
-}
-
-//
-//
-//
-
-/*
- const item = {
-      name: nameNewItemInput.value,
-      link: linkNewItemInput.value
-    }
-*/
-
-function createCard(item) {
-  // клонируем содержимое тега template
-  const cardElement = cardItemInTemplate.cloneNode(true)
-
-  // наполняем содержимым
-
-  // ищем в template нужные html элементы
-  const titleNewItem = cardElement.querySelector(".elements__title")
-  const imageNewItem = cardElement.querySelector(".elements__img")
-  const likeButtonNewItem = cardElement.querySelector(".elements__button-like")
-  const trashButtonNewItem = cardElement.querySelector(".elements__button-trash")
-
-  // заполняем cardElement
-  titleNewItem.textContent = item.name
-  imageNewItem.src = item.link
-  imageNewItem.alt = item.name //добавляем alt на картинку item
-  addListnerToLikeButton(likeButtonNewItem) //cloneNode не копирует listners
-  addListnerToTrashButton(trashButtonNewItem)
-  addListnerToImagesInItems(imageNewItem)
-
-  return cardElement
-}
