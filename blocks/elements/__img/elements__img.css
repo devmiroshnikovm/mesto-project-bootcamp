@@ -2,4 +2,8 @@
   width: 100%;
   height: 282px;
   object-fit: cover;
+  color: red;
+}
+.elements__img:hover {
+  cursor: pointer;
 }

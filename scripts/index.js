@@ -68,17 +68,27 @@ function addListnerToLikeButton(button) {
 
 function addListnerToTrashButton(button) {
   button.addEventListener("click", function (event) {
-    //найти ближайший элемент c class elements__item
+    const btn = event.target
+    console.log(typeof btn) //object
+    console.log(Object.getOwnPropertyNames(btn))
+
     const currentItem = event.target.closest(".elements__item")
+
     currentItem.remove()
   })
 }
 
 function addListnerToImagesInItems(image) {
   image.addEventListener("click", function (event) {
-    nameIncreaseImagePopup.textContent = event.target.closest(".elements__title").textContent //edit
-    imgIncreaseImagePopup.setAttribute("src", event.target.getAttribute("src"))
-    imgIncreaseImagePopup.setAttribute("alt", event.target.closest(".elements__title").textContent) // нужен ли alt на раскрытую картинку? наверно нет
+    const name = "default name"
+    // const name = event.target.closest(".elements__title").textContent // null
+    // const name = event.target.parentElement.querySelector(".elements__title").textContent //work
+    const src = event.target.getAttribute("src")
+
+    nameIncreaseImagePopup.textContent == name
+
+    imgIncreaseImagePopup.setAttribute("src", src)
+    imgIncreaseImagePopup.setAttribute("alt", name) // нужен ли alt на раскрытую картинку? наверно нет
     increaseImagePopup.classList.add("popup_opened")
   })
 }
@@ -112,15 +122,6 @@ function handleFormSubmitNewItem(evt) {
   }
 }
 
-function addDefaultValuesToInputs(popup) {
-  if (popup) {
-    nameInputProfilePopup.value = profileName.textContent
-    jobInputProfilePopup.value = profileProfession.textContent
-  } else {
-    console.log("popup not found")
-  }
-}
-
 /* functions */
 
 /* event listners */
@@ -150,8 +151,8 @@ formElementNewItemPopup.addEventListener("submit", handleFormSubmitNewItem)
 
 fillProfileInputs(profilePopup)
 
-initialCards.forEach((item) => {
-  addNewCard(item, true)
+initialCards.forEach((card) => {
+  addNewCard(card, true)
 })
 
 /* main code */
