@@ -51,6 +51,9 @@ This project is licensed under the MIT License
 
 This project is dependent to odering imports css fils in pages.css
 
-````@import url(../blocks/popup/_opened/popup_opened.css);
-@import url(../blocks/elements/__button-like/_active/elements__button-like_active.css);```
-````
+```@import url(../blocks/elements/__button-like/_active/elements__button-like_active.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/elements/__img/_size/elements__img_size_large.css);
+@import url(../blocks/elements/__title/_place/elements__title_place_popup.css);
+@import url(../blocks/popup/_deep/popup_deep.css);
+```
