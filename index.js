@@ -111,7 +111,7 @@ function addListnerToImagesInItems(image) {
   image.addEventListener("click", function (event) {
     namePopupImage.textContent = event.target.parentElement.querySelector(".elements__title").textContent
     imgPopupImage.setAttribute("src", event.target.getAttribute("src"))
-    popupScaleImage.classList.add("popup_opened")
+    popupScaleImage.classList.add("popup_opened", "popup_deep")
   })
 }
 
@@ -122,7 +122,6 @@ function handleFormSubmit(evt) {
   profileName.textContent = nameInput.value
   profileProfession.textContent = jobInput.value
 
-  console.log("handleFormSubmit")
   closePopup(evt)
 }
 
@@ -130,14 +129,17 @@ function handleFormSubmitNewItem(evt) {
   // Эта строчка отменяет стандартную отправку формы.
   evt.preventDefault()
 
+  const nameInputValue = nameNewItemInput.value
+  const linkInputValue = linkNewItemInput.value
+
   // если в input есть что-то
-  if (nameNewItemInput.value && linkNewItemInput.value) {
+  if (nameInputValue && linkInputValue) {
     //копируем объект с данными из шаблона в новый объект, чтобы модифицировать его введенными данными из формы
 
     const newObj = [...objTemplateNewItem]
 
     //так как метод find возвращает ссылку на основной newObj
-    const titleObject = newObj.find((obj) => obj.class === ".elements__title")
+    const titleObject = newObj.find((obj) => obj.class === ".elements__title") //find() method returns the first element
     // при изменении titleObject меняется и основной newObj
     titleObject.value = nameNewItemInput.value
 
@@ -165,6 +167,43 @@ function addDefaultValuesToInputs(_popup) {
   }
 }
 
+// берем функцию и прокидываем в нее:
+// нужный template ID если <template> несколько
+// class в шаблоне, который нужно поменять
+// lisnters на каждый соответствующий элемент. Важна очередность, чтобы нужный listner применился к соответствующему html элементу в шаблоне
+// obj с параметрами что нужно менять
+
+function addNewUniqueItem(itemTemplateID, itemClassToClone, addListenerFunctions, properties) {
+  // находим template
+  const itemTemplate = document.getElementById(itemTemplateID).content // #item-template
+
+  // копируем шаблон
+  const newItem = itemTemplate.querySelector("." + itemClassToClone).cloneNode(true) //.elements__item
+
+  // заполняем шаблон
+
+  // в _functionAddListner лежит массив listners, которые навешиваем на скопированные элементы <template>
+  // в addListenerFunctions берем первый listner через shift и навешиваем его на элемент, далее поочередно остальные, пока их не станет 0
+  // нужна строгая очередность передачи listners
+
+  for (let i = 0; i < properties.length; i++) {
+    const prop = properties[i]
+
+    //stict comparation
+    if (prop.addListnerFlag === true) {
+      const addListenerFunction = addListenerFunctions.shift() // на выходе получаем нужный listner
+
+      //add listner
+      addListenerFunction(newItem.querySelector(prop.class))
+    } else {
+      // заполнить шаблон
+      newItem.querySelector(prop.class)[prop.attribute] = prop.value
+    }
+  }
+
+  return newItem // return итоговый заполненный обьект
+}
+
 function addNewItem(_name, _link, _orderLast) {
   // клонируем содержимое тега template
   const newItem = itemTemplate.querySelector(".elements__item").cloneNode(true)
@@ -183,6 +222,9 @@ function addNewItem(_name, _link, _orderLast) {
   }
 }
 
+for (let i = 0; i < initialCards.length; i++) {
+  addNewItem(initialCards[i].name, initialCards[i].link, true)
+}
 /* functions */
 
 /* event listners */
@@ -213,45 +255,4 @@ formElementNewItem.addEventListener("submit", handleFormSubmitNewItem)
 
 /* main code */
 addDefaultValuesToInputs(popup)
-
-for (let i = 0; i < initialCards.length; i++) {
-  addNewItem(initialCards[i].name, initialCards[i].link, true)
-}
-
-// берем функцию и прокидываем в нее:
-// нужный template ID если <template> несколько
-// class в шаблоне, который нужно поменять
-// lisnters на каждый соответствующий элемент. Важна очередность, чтобы нужный listner применился к соответствующему html элементу в шаблоне
-// obj с параметрами что нужно менять
-
-function addNewUniqueItem(_itemTemplateID, _itemClassToClone, _functionAddListner, obj) {
-  // находим template
-  const itemTemplate = document.querySelector("#" + _itemTemplateID).content // #item-template
-
-  // копируем шаблон
-  const newItem = itemTemplate.querySelector("." + _itemClassToClone).cloneNode(true) //.elements__item
-
-  // заполняем шаблон
-
-  // в _functionAddListner лежит массив listners, которые навешиваем на скопированные элементы <template>
-  // если в объекте 3 свойства, а в массив listners передано 2 - вызовет ошибку
-  // нужна строгая очередность передачи listners
-
-  let j = 0
-  for (let i = 0; i < obj.length; i++) {
-    if (obj[i].addListnerFlag == true) {
-      //add listner
-      _functionAddListner[j](newItem.querySelector(obj[i].class))
-      j = j + 1
-    } else if (obj[i].addListnerFlag == false) {
-      // заполнить шаблон
-      let searchClass = obj[i].class
-      let attribute = obj[i].attribute
-      let value = obj[i].value
-
-      newItem.querySelector(searchClass)[attribute] = value
-    }
-  }
-
-  return newItem // return итоговый заполненный обьект
-}
+/* main code */
