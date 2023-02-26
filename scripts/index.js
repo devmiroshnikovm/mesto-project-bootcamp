@@ -136,25 +136,46 @@ function addNewCard(card, orderLast) {
   }
 }
 
+// один раз создается функкция, которая открывает картинку
+// далее создаются ссылки на одну эту функцию при нажатии на картинку
+function handleCardClick({ name, link }) {
+  nameIncreaseImagePopup.textContent = name //добавить подпись к картинке
+  imgIncreaseImagePopup.setAttribute("src", link)
+  imgIncreaseImagePopup.setAttribute("alt", name)
+  increaseImagePopup.classList.add("popup_opened") // открыть картинку
+}
+
 function createCard(item) {
+  const cardName = item.name
+  const cardLink = item.link
+
   // клонируем содержимое тега template
-  const cardElement = cardItemInTemplate.cloneNode(true)
+  const cardElement = cardItemInTemplate.cloneNode(true) //cardItemInTemplate - global value
 
-  // наполняем содержимым
-
-  // ищем в template нужные html элементы
+  // наполняем содержимым:
+  // 1. ищем в template нужные html элементы
   const titleNewItem = cardElement.querySelector(".elements__title")
   const imageNewItem = cardElement.querySelector(".elements__img")
   const likeButtonNewItem = cardElement.querySelector(".elements__button-like")
   const trashButtonNewItem = cardElement.querySelector(".elements__button-trash")
 
-  // заполняем cardElement
-  titleNewItem.textContent = item.name
-  imageNewItem.src = item.link
-  imageNewItem.alt = item.name //добавляем alt на картинку item
-  addListnerToLikeButton(likeButtonNewItem) //cloneNode не копирует listners
-  addListnerToTrashButton(trashButtonNewItem)
-  addListnerToImagesInItems(imageNewItem)
+  // 2. заполняем cardElement (карточку)
+  titleNewItem.textContent = cardName
+  imageNewItem.src = cardLink
+  imageNewItem.alt = cardName
+
+  likeButtonNewItem.addEventListener("click", (event) => {
+    event.target.classList.toggle("elements__button-like_active")
+  })
+
+  trashButtonNewItem.addEventListener("click", (event) => {
+    const currentItem = event.target.closest(".elements__item")
+    currentItem.remove()
+  })
+
+  imageNewItem.addEventListener("click", () => {
+    handleCardClick(item)
+  })
 
   return cardElement
 }
@@ -192,3 +213,10 @@ initialCards.forEach((card) => {
 })
 
 /* main code */
+
+/*
+Так-же можно вынести и колбэки для кнопок лайка и удаления. 
+При этом в колбэк можно передавать не событие, 
+а в первом случае саму кнопку лайка, у которой только класс активности переключать потом, 
+а при удалении передавать сам элемент - карточку, который был создан клоном и тогда ее сразу можно удалять.
+*/
