@@ -10,9 +10,10 @@
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 
   width: calc((358 / 430) * 100%);
+  max-width: calc((358 / 430) * 100%);
 }
 
 @media screen and (max-width: 320px) {

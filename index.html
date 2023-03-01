@@ -58,9 +58,11 @@
         <button class="button popup__button-close" type="button"></button>
         <div class="edit-content">
           <h2 class="edit-content__heading">Редактировать профиль</h2>
-          <form class="form" name="edit-profile">
-            <input type="text" class="form__item" id="name" name="name" placeholder="Имя" autocomplete="off" required />
-            <input type="text" class="form__item" id="job" name="job" placeholder="Профессия" autocomplete="off" required />
+          <form class="form" name="edit-profile" novalidate>
+            <input id="name" type="text" class="form__item" name="name" placeholder="Имя" autocomplete="off" required minlength="20" maxlength="40" />
+            <span id="error-name" class="form__error-message">Вы пропустили это поле.</span>
+            <input name="job" type="text" class="form__item" id="job" placeholder="Профессия" autocomplete="off" required minlength="2" maxlength="200" />
+            <span id="error-job" class="form__error-message">Вы пропустили это поле.</span>
             <button class="button form__button">Сохранить</button>
           </form>
         </div>
@@ -72,9 +74,11 @@
         <button class="button popup__button-close" type="button"></button>
         <div class="edit-content">
           <h2 class="edit-content__heading">Новое место</h2>
-          <form class="form" name="new-item">
-            <input type="text" class="form__item" id="image_name" name="image_name" placeholder="Название" autocomplete="off" required />
-            <input type="text" class="form__item" id="link" name="link" placeholder="Ссылка на картинку" autocomplete="off" required />
+          <form class="form" name="new-item" novalidate>
+            <input id="image_name" type="text" class="form__item" name="image_name" placeholder="Название" autocomplete="off" required minlength="2" maxlength="30" />
+            <span id="error-image_name" class="form__error-message">Вы пропустили это поле.</span>
+            <input id="link" type="url" class="form__item" name="link" placeholder="Ссылка на картинку" autocomplete="off" required />
+            <span id="error-link" class="form__error-message">Введите адрес сайта.</span>
             <button class="button form__button">Сохранить</button>
           </form>
         </div>

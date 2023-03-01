@@ -164,9 +164,10 @@ function createCard(item) {
   imageNewItem.src = cardLink
   imageNewItem.alt = cardName
 
-  likeButtonNewItem.addEventListener("click", (event) => {
-    event.target.classList.toggle("elements__button-like_active")
-  })
+  // применяем делегирование
+  //likeButtonNewItem.addEventListener("click", (event) => {
+  //    event.target.classList.toggle("elements__button-like_active")
+  //})
 
   trashButtonNewItem.addEventListener("click", (event) => {
     const currentItem = event.target.closest(".elements__item")
@@ -220,3 +221,40 @@ initialCards.forEach((card) => {
 а в первом случае саму кнопку лайка, у которой только класс активности переключать потом, 
 а при удалении передавать сам элемент - карточку, который был создан клоном и тогда ее сразу можно удалять.
 */
+
+//////////////////////////////////////////////////////////////
+
+// применяем делегирование
+elementSelector.addEventListener("click", (event) => {
+  if (event.target.classList.contains("elements__button-like")) {
+    event.target.classList.toggle("elements__button-like_active")
+  }
+})
+
+////////////
+function showError(inputElement, errorMessage) {
+  const errorSpanSelector = `#error-${inputElement.id}`
+  const errorSpan = document.querySelector(errorSpanSelector)
+  errorSpan.textContent = errorMessage
+  console.log(errorMessage)
+}
+
+function hideError(inputElement) {
+  const errorSpanSelector = `#error-${inputElement.id}`
+  const errorSpan = document.querySelector(errorSpanSelector)
+  errorSpan.textContent = ""
+}
+
+function toggleButton() {}
+
+function checkValidity(inputElement) {
+  if (inputElement.validity.valid) {
+    hideError(inputElement)
+  } else {
+    showError(inputElement, inputElement.validationMessage)
+  }
+}
+
+nameInputNewItemPopup.addEventListener("input", () => {
+  checkValidity(nameInputNewItemPopup)
+})
