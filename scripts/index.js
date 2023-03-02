@@ -97,8 +97,8 @@ buttonEditProfile.addEventListener("click", () => {
 })
 buttonAddContent.addEventListener("click", () => {
   // TODO test
-  nameInputNewItemPopup.value = "test_item"
-  linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
+  //nameInputNewItemPopup.value = "test_item"
+  //linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
   // TODO test
   openPopup(newItemPopup)
 })
@@ -109,15 +109,6 @@ closeButtons.forEach((button) => {
     closePopup(popup)
   })
 })
-
-// применяем делегирование
-// на лайки
-elementSelector.addEventListener("click", (event) => {
-  if (event.target.classList.contains("elements__button-like")) {
-    event.target.classList.toggle("elements__button-like_active")
-  }
-})
-// на trash buttons
 
 formElementProfilePopup.addEventListener("submit", handleProfileFormSubmit)
 formElementNewItemPopup.addEventListener("submit", handleNewItemFormSubmi)

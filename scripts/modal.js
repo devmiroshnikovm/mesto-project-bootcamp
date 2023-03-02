@@ -21,6 +21,10 @@ popupList.forEach((popup) => {
   })
 })
 
+// нужно переделать
+// добавлять слушатель при открытии popup
+// удалять при закрытии popup
+
 document.addEventListener("keydown", (event) => {
   if (event.code === "Escape") {
     // ищем первый открытый popup - не может же быть два открытых popup одновременно?

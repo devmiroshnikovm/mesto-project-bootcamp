@@ -6,13 +6,14 @@ export const createCard = (item, handleCardClick) => {
   const cardLink = item.link
 
   // клонируем содержимое тега template
-  const cardElement = cardItemInTemplate.cloneNode(true) //cardItemInTemplate - global value
+  const cardElement = cardItemInTemplate.cloneNode(true)
 
   // наполняем содержимым:
   // 1. ищем в template нужные html элементы
   const titleNewItem = cardElement.querySelector(".elements__title")
   const imageNewItem = cardElement.querySelector(".elements__img")
   const trashButtonNewItem = cardElement.querySelector(".elements__button-trash")
+  const likeButtonNewItem = cardElement.querySelector(".elements__button-like")
 
   // 2. заполняем cardElement (карточку)
   titleNewItem.textContent = cardName
@@ -23,6 +24,10 @@ export const createCard = (item, handleCardClick) => {
   trashButtonNewItem.addEventListener("click", (event) => {
     const currentItem = event.target.closest(".elements__item")
     currentItem.remove()
+  })
+
+  likeButtonNewItem.addEventListener("click", (event) => {
+    event.target.classList.toggle("elements__button-like_active")
   })
 
   imageNewItem.addEventListener("click", () => {
