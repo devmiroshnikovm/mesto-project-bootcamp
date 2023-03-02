@@ -17,10 +17,12 @@
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/form/___main-container/form__main-container.css);
+
 @import url(../blocks/form/__button/form__button.css);
 
 @import url(../blocks/form/__error-message/form__error-message.css);
 @import url(../blocks/form/__input-container/form__input-container.css);
+@import url(../blocks/form/__item/_type_error/form__item_type_error.css);
 @import url(../blocks/form/__item/form__item.css);
 @import url(../blocks/form/form.css);
 @import url(../blocks/header/__line/header__line.css);
@@ -48,7 +50,9 @@
 @import url(../blocks/elements/__img/_size/elements__img_size_large.css);
 @import url(../blocks/elements/__title/_place/elements__title_place_popup.css);
 @import url(../blocks/popup/_deep/popup_deep.css);
-@import url(../blocks/form/__error-message/_hidden/form__error-message_hidden.css);
+@import url(../blocks/form/__item/_type_error/form__item_type_error.css);
+@import url(../blocks/form/__error-message/_active/form__error-message_active.css);
+@import url(../blocks/form/__button/_disabled/form__button_disabled.css);
 
 ::-webkit-scrollbar {
   height: 10px;

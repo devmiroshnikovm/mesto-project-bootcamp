@@ -1,4 +1,5 @@
 import { initialCards } from "./initialcards.js"
+import { enableValidation } from "./validate.js"
 
 /* variables */
 
@@ -126,6 +127,7 @@ function handleFormSubmitNewItem(evt) {
   }
 }
 
+//переделать на 2 функции
 function addNewCard(card, orderLast) {
   const newItem = createCard(card)
 
@@ -183,8 +185,9 @@ function createCard(item) {
 /* functions */
 
 /* event listners */
-buttonEditProfile.addEventListener("click", () => openPopup(profilePopup))
-
+buttonEditProfile.addEventListener("click", () => {
+  openPopup(profilePopup)
+})
 buttonAddContent.addEventListener("click", () => {
   // TODO test
   //nameInputNewItemPopup.value = "test_item"
@@ -232,29 +235,35 @@ elementSelector.addEventListener("click", (event) => {
 })
 
 ////////////
-function showError(inputElement, errorMessage) {
-  const errorSpanSelector = `#error-${inputElement.id}`
-  const errorSpan = document.querySelector(errorSpanSelector)
-  errorSpan.textContent = errorMessage
-  console.log(errorMessage)
-}
 
-function hideError(inputElement) {
-  const errorSpanSelector = `#error-${inputElement.id}`
-  const errorSpan = document.querySelector(errorSpanSelector)
-  errorSpan.textContent = ""
-}
+enableValidation({
+  formSelector: ".form",
+  inputSelector: ".form__item",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button_disabled",
+  inputErrorClass: "form__item_type_error",
+  errorClass: "form__item_type_error",
+})
 
-function toggleButton() {}
-
-function checkValidity(inputElement) {
-  if (inputElement.validity.valid) {
-    hideError(inputElement)
-  } else {
-    showError(inputElement, inputElement.validationMessage)
+function handleClickPopup(event) {
+  if (event.target === event.currentTarget) {
+    closePopup(event.currentTarget)
   }
 }
 
-nameInputNewItemPopup.addEventListener("input", () => {
-  checkValidity(nameInputNewItemPopup)
+const popupList = document.querySelectorAll(".popup")
+popupList.forEach((popup) => {
+  popup.addEventListener("click", (event) => {
+    handleClickPopup(event)
+  })
+})
+
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Escape") {
+    // ищем первый открытый popup - не может же быть два открытых popup одновременно?
+    const activePopup = event.currentTarget.querySelector(".popup_opened")
+    if (activePopup) {
+      activePopup.classList.remove("popup_opened")
+    }
+  }
 })
