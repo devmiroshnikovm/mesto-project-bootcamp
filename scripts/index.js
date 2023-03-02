@@ -115,27 +115,23 @@ function handleFormSubmitNewItem(evt) {
 
   // если в input есть что-то
   if (card.name && card.link) {
-    addNewCard(card, false) //addNewCard(card, orderLast)
-
+    addNewCardBefore(card)
     hideClosestPopup(evt)
 
     //обнулить после submit inputs
     nameInputNewItemPopup.value = null
     linkInputNewItemPopup.value = null
-  } else {
-    alert("enter data")
   }
 }
 
-//переделать на 2 функции
-function addNewCard(card, orderLast) {
+function addNewCardAfter(card) {
   const newItem = createCard(card)
+  elementSelector.append(newItem)
+}
 
-  if (orderLast === true) {
-    elementSelector.append(newItem)
-  } else {
-    elementSelector.prepend(newItem)
-  }
+function addNewCardBefore(card) {
+  const newItem = createCard(card)
+  elementSelector.prepend(newItem)
 }
 
 // один раз создается функкция, которая открывает картинку
@@ -213,7 +209,7 @@ formElementNewItemPopup.addEventListener("submit", handleFormSubmitNewItem)
 fillProfileInputs(profilePopup)
 
 initialCards.forEach((card) => {
-  addNewCard(card, true)
+  addNewCardAfter(card)
 })
 
 /* main code */
@@ -236,15 +232,6 @@ elementSelector.addEventListener("click", (event) => {
 
 ////////////
 
-enableValidation({
-  formSelector: ".form",
-  inputSelector: ".form__item",
-  submitButtonSelector: ".form__button",
-  inactiveButtonClass: "form__button_disabled",
-  inputErrorClass: "form__item_type_error",
-  errorClass: "form__item_type_error",
-})
-
 function handleClickPopup(event) {
   if (event.target === event.currentTarget) {
     closePopup(event.currentTarget)
@@ -266,4 +253,13 @@ document.addEventListener("keydown", (event) => {
       activePopup.classList.remove("popup_opened")
     }
   }
+})
+
+enableValidation({
+  formSelector: ".form",
+  inputSelector: ".form__item",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button_disabled",
+  inputErrorClass: "form__item_type_error",
+  errorClass: "form__item_type_error",
 })
