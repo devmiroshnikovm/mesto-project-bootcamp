@@ -15,8 +15,9 @@ function handleClickPopup(event) {
   }
 }
 
+//убрать 2 цикл - добавить в закрыть
 popupList.forEach((popup) => {
-  popup.addEventListener("click", (event) => {
+  popup.addEventListener("mousedown", (event) => {
     handleClickPopup(event)
   })
 })

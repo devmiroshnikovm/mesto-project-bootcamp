@@ -5,31 +5,30 @@ import { openPopup, closePopup } from "./modal.js"
 
 /* variables */
 
-const buttonEditProfile = document.querySelector(".button.profile__button-edit")
-const buttonAddContent = document.querySelector(".profile__button-add")
-const closeButtons = document.querySelectorAll(".popup__button-close")
-
+const closeButtonList = document.querySelectorAll(".popup__button-close") //closeButtons
 const profileName = document.querySelector(".profile__title")
 const profileProfession = document.querySelector(".profile__subtitle")
 
 //popup - edit profile
-const profilePopup = document.querySelector(".popup_type_profile")
+const buttonProfilePopup = document.querySelector(".button.profile__button-edit")
+const popupProfile = document.querySelector(".popup_type_profile")
 const formElementProfilePopup = document.forms["edit-profile"]
 const nameInputProfilePopup = formElementProfilePopup.querySelector('input.form__item[name="name"]')
 const jobInputProfilePopup = formElementProfilePopup.querySelector('input.form__item[name="job"]')
 //popup - edit profile
 
 //popup - add new item
-const newItemPopup = document.querySelector(".popup_type_new-item")
+const buttonNewItemPopup = document.querySelector(".profile__button-add")
+const popupNewItem = document.querySelector(".popup_type_new-item") //newItemPopup
 const formElementNewItemPopup = document.forms["new-item"]
 const nameInputNewItemPopup = formElementNewItemPopup.querySelector('input.form__item[name="image_name"]')
 const linkInputNewItemPopup = formElementNewItemPopup.querySelector('input.form__item[name="link"]')
 //popup - add new item
 
 //popup - increase screen image
-const increaseImagePopup = document.querySelector(".popup_type_image")
-const imgIncreaseImagePopup = increaseImagePopup.querySelector(".elements__img_size_large")
-const nameIncreaseImagePopup = increaseImagePopup.querySelector(".elements__title_place_popup")
+const popupIncreaseImage = document.querySelector(".popup_type_image") //increaseImagePopup
+const imgIncreaseImagePopup = popupIncreaseImage.querySelector(".elements__img_size_large")
+const nameIncreaseImagePopup = popupIncreaseImage.querySelector(".elements__title_place_popup")
 //popup - increase screen image
 
 //add items
@@ -64,7 +63,7 @@ function handleCardClick({ name, link }) {
   nameIncreaseImagePopup.textContent = name
   imgIncreaseImagePopup.setAttribute("src", link)
   imgIncreaseImagePopup.setAttribute("alt", name)
-  increaseImagePopup.classList.add("popup_opened")
+  popupIncreaseImage.classList.add("popup_opened")
 }
 
 function handleProfileFormSubmit(event) {
@@ -92,18 +91,19 @@ function handleNewItemFormSubmi(event) {
 /* functions */
 
 /* event listners */
-buttonEditProfile.addEventListener("click", () => {
-  openPopup(profilePopup)
+buttonProfilePopup.addEventListener("click", () => {
+  openPopup(popupProfile)
 })
-buttonAddContent.addEventListener("click", () => {
+buttonNewItemPopup.addEventListener("click", () => {
   // TODO test
-  //nameInputNewItemPopup.value = "test_item"
-  //linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
+  nameInputNewItemPopup.value = "test_item"
+  linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
   // TODO test
-  openPopup(newItemPopup)
+  openPopup(popupNewItem)
 })
 
-closeButtons.forEach((button) => {
+// перенести в modal
+closeButtonList.forEach((button) => {
   const popup = button.closest(".popup")
   button.addEventListener("click", () => {
     closePopup(popup)
@@ -115,7 +115,7 @@ formElementNewItemPopup.addEventListener("submit", handleNewItemFormSubmi)
 /* event listners */
 
 /* main code */
-fillDefaultsInProfileInputs(profilePopup)
+fillDefaultsInProfileInputs(popupProfile)
 
 initialCards.forEach((card) => {
   addNewCardAfter(card)

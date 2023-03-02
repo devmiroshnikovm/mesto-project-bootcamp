@@ -1,36 +1,41 @@
-const itemTemplate = document.querySelector("#item-template").content //add data from template
-const cardItemInTemplate = itemTemplate.querySelector(".elements__item") // card in template
+const itemTemplate = document.querySelector("#item-template").content // document fragment
+const cardItemInTemplate = itemTemplate.querySelector(".elements__item") // div
+
+function removeItem(item) {
+  console.log(item)
+  item.remove()
+}
+
+function handleLikeButton(button) {
+  button.classList.toggle("elements__button-like_active")
+}
 
 export const createCard = (item, handleCardClick) => {
-  const cardName = item.name
-  const cardLink = item.link
-
   // клонируем содержимое тега template
   const cardElement = cardItemInTemplate.cloneNode(true)
 
   // наполняем содержимым:
   // 1. ищем в template нужные html элементы
-  const titleNewItem = cardElement.querySelector(".elements__title")
-  const imageNewItem = cardElement.querySelector(".elements__img")
-  const trashButtonNewItem = cardElement.querySelector(".elements__button-trash")
-  const likeButtonNewItem = cardElement.querySelector(".elements__button-like")
+  const titleCard = cardElement.querySelector(".elements__title")
+  const imageCard = cardElement.querySelector(".elements__img")
+  const buttonTrashCard = cardElement.querySelector(".elements__button-trash")
+  const buttonLikeCard = cardElement.querySelector(".elements__button-like")
 
   // 2. заполняем cardElement (карточку)
-  titleNewItem.textContent = cardName
-  imageNewItem.src = cardLink
-  imageNewItem.alt = cardName
+  titleCard.textContent = item.name
+  imageCard.src = item.link
+  imageCard.alt = item.name
 
   // 3. добавляем listners
-  trashButtonNewItem.addEventListener("click", (event) => {
-    const currentItem = event.target.closest(".elements__item")
-    currentItem.remove()
+  buttonTrashCard.addEventListener("click", () => {
+    removeItem(cardElement)
   })
 
-  likeButtonNewItem.addEventListener("click", (event) => {
-    event.target.classList.toggle("elements__button-like_active")
+  buttonLikeCard.addEventListener("click", () => {
+    handleLikeButton(buttonLikeCard)
   })
 
-  imageNewItem.addEventListener("click", () => {
+  imageCard.addEventListener("click", () => {
     handleCardClick(item)
   })
 
