@@ -2,7 +2,6 @@ const itemTemplate = document.querySelector("#item-template").content // documen
 const cardItemInTemplate = itemTemplate.querySelector(".elements__item") // div
 
 function removeItem(item) {
-  console.log(item)
   item.remove()
 }
 

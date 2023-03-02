@@ -1,13 +1,23 @@
+const popupList = document.querySelectorAll(".popup")
+const closeButtonList = document.querySelectorAll(".popup__button-close")
+
+function handlePopupByEscape(event) {
+  if (event.code === "Escape") {
+    const popup = document.querySelector(".popup_opened")
+    closePopup(popup)
+  }
+}
+
 export const openPopup = (popup) => {
   popup.classList.add("popup_opened")
+
+  document.addEventListener("keydown", handlePopupByEscape)
 }
 
 export const closePopup = (popup) => {
   popup.classList.remove("popup_opened")
+  document.removeEventListener("keydown", handlePopupByEscape)
 }
-
-/* блок обработчиков закрытия popup */
-const popupList = document.querySelectorAll(".popup")
 
 function handleClickPopup(event) {
   if (event.target === event.currentTarget) {
@@ -15,24 +25,14 @@ function handleClickPopup(event) {
   }
 }
 
-//убрать 2 цикл - добавить в закрыть
-popupList.forEach((popup) => {
+closeButtonList.forEach((button) => {
+  const popup = button.closest(".popup")
+
+  button.addEventListener("click", () => {
+    closePopup(popup)
+  })
+
   popup.addEventListener("mousedown", (event) => {
     handleClickPopup(event)
   })
 })
-
-// нужно переделать
-// добавлять слушатель при открытии popup
-// удалять при закрытии popup
-
-document.addEventListener("keydown", (event) => {
-  if (event.code === "Escape") {
-    // ищем первый открытый popup - не может же быть два открытых popup одновременно?
-    const activePopup = event.currentTarget.querySelector(".popup_opened")
-    if (activePopup) {
-      activePopup.classList.remove("popup_opened")
-    }
-  }
-})
-/* блок обработчиков закрытия popup */

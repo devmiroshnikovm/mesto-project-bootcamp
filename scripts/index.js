@@ -5,7 +5,6 @@ import { openPopup, closePopup } from "./modal.js"
 
 /* variables */
 
-const closeButtonList = document.querySelectorAll(".popup__button-close") //closeButtons
 const profileName = document.querySelector(".profile__title")
 const profileProfession = document.querySelector(".profile__subtitle")
 
@@ -32,7 +31,7 @@ const nameIncreaseImagePopup = popupIncreaseImage.querySelector(".elements__titl
 //popup - increase screen image
 
 //add items
-const elementSelector = document.querySelector(".elements") // find element to append
+const elementSelector = document.querySelector(".elements__list") // find element to append
 
 /* variables */
 
@@ -63,7 +62,7 @@ function handleCardClick({ name, link }) {
   nameIncreaseImagePopup.textContent = name
   imgIncreaseImagePopup.setAttribute("src", link)
   imgIncreaseImagePopup.setAttribute("alt", name)
-  popupIncreaseImage.classList.add("popup_opened")
+  openPopup(popupIncreaseImage)
 }
 
 function handleProfileFormSubmit(event) {
@@ -100,14 +99,6 @@ buttonNewItemPopup.addEventListener("click", () => {
   linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
   // TODO test
   openPopup(popupNewItem)
-})
-
-// перенести в modal
-closeButtonList.forEach((button) => {
-  const popup = button.closest(".popup")
-  button.addEventListener("click", () => {
-    closePopup(popup)
-  })
 })
 
 formElementProfilePopup.addEventListener("submit", handleProfileFormSubmit)
