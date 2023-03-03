@@ -18,22 +18,32 @@ Files structure:
 
 ## Getting Started
 
-Use git clone to get copy of the project.
-
 ### Prerequisites
 
-Live server vscode extension to run project locally.
+babel.config.js - transpile code (to support old browsers)
+package.json - packeges to install
+postcss.config.js -
+
+webpack.config.js
+
+plugins:
+HtmlWebpackPlugin - use index.html as template and add generated index.js to index.js
+CleanWebpackPlugin - clean dist folder before run npm
+css-loader
+mini-css-extract-plugin
 
 ### Installing
 
 Step by step instructions on how to install the project
 
-1. Clone the repository
-2. Start the server
+1. git clone
+2. npm init
+3. npm install
 
 ## Usage
 
-open 127.0.0.1 port 5500 locally or https://devmiroshnikovm.github.io/mesto-project-bootcamp/
+npm run dev
+npm run build
 
 ## Contributing
 
@@ -50,10 +60,3 @@ This project is licensed under the MIT License
 ## Commments
 
 This project is dependent to odering imports css fils in pages.css
-
-```@import url(../blocks/elements/__button-like/_active/elements__button-like_active.css);
-@import url(../blocks/popup/_opened/popup_opened.css);
-@import url(../blocks/elements/__img/_size/elements__img_size_large.css);
-@import url(../blocks/elements/__title/_place/elements__title_place_popup.css);
-@import url(../blocks/popup/_deep/popup_deep.css);
-```
