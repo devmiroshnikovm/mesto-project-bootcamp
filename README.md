@@ -22,7 +22,7 @@ Files structure:
 
 babel.config.js - transpile code (to support old browsers)
 package.json - packeges to install
-postcss.config.js -
+postcss.config.js
 
 webpack.config.js
 
@@ -44,6 +44,8 @@ Step by step instructions on how to install the project
 
 npm run dev
 npm run build
+
+https://devmiroshnikovm.github.io/mesto-project-bootcamp/
 
 ## Contributing
 
