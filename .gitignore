@@ -3,6 +3,8 @@ build_p.js
 src/vendor/fonts/Inter-3.19
 temp
 test.js
+**/.DS_Store
+
 
 node_modules
 dist 
