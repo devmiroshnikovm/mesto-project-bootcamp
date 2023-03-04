@@ -38,6 +38,15 @@ const nameIncreaseImagePopup = popupIncreaseImage.querySelector(".elements__titl
 //add items
 const elementSelector = document.querySelector(".elements__list") // find element to append
 
+const configValidation = {
+  formSelector: ".form",
+  inputSelector: ".form__item",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button_disabled",
+  inputErrorClass: "form__item_type_error",
+  errorClass: "form__error-message__active",
+}
+
 /* variables */
 
 /* functions */
@@ -88,8 +97,8 @@ function handleNewItemFormSubmi(event) {
     addNewCardBefore(card)
     hideClosestPopup(event)
     //обнулить после submit inputs
-    nameInputNewItemPopup.value = null
-    linkInputNewItemPopup.value = null
+    //обнуляем сразу всю форму
+    event.target.reset()
   }
 }
 /* functions */
@@ -116,15 +125,6 @@ fillDefaultsInProfileInputs(popupProfile)
 initialCards.forEach((card) => {
   addNewCardAfter(card)
 })
-
-const VALIDATION_CONFIG = {
-  formSelector: ".form",
-  inputSelector: ".form__item",
-  submitButtonSelector: ".form__button",
-  inactiveButtonClass: "form__button_disabled",
-  inputErrorClass: "form__item_type_error",
-  errorClass: "form__error-message__active",
-}
 
 enableValidation(configValidation)
 /* main code */

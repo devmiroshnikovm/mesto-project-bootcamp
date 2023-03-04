@@ -40,10 +40,22 @@ const hideInputError = (formElement, inputElement, config) => {
   errorElement.textContent = ""
 }
 
+// в каждой форме
 const setEventListeners = (formElement, config) => {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector))
   const buttonElement = formElement.querySelector(config.submitButtonSelector)
 
+  // деактивируем кнопку при 1й загрузке сайта
+  toggleButtonState(inputList, buttonElement, config)
+
+  formElement.addEventListener("reset", () => {
+    // `setTimeout` нужен для того, чтобы дождаться очищения формы (вызов уйдет в конце стэка) и только потом вызвать `toggleButtonState`
+    setTimeout(() => {
+      toggleButtonState(inputList, buttonElement, config)
+    }, 0) // достаточно указать 0 миллисекунд, чтобы после `reset` уже сработало действие
+  })
+
+  //проходимся по всем input
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       isValid(formElement, inputElement, config)

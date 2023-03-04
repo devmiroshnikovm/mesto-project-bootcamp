@@ -19,7 +19,7 @@ export const closePopup = (popup) => {
   document.removeEventListener("keydown", handlePopupByEscape)
 }
 
-function handleClickPopup(event) {
+function handleOverlay(event) {
   if (event.target === event.currentTarget) {
     closePopup(event.currentTarget)
   }
@@ -32,7 +32,5 @@ closeButtonList.forEach((button) => {
     closePopup(popup)
   })
 
-  popup.addEventListener("mousedown", (event) => {
-    handleClickPopup(event)
-  })
+  popup.addEventListener("mousedown", handleOverlay)
 })
