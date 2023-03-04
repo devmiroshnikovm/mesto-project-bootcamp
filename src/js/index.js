@@ -100,8 +100,8 @@ buttonProfilePopup.addEventListener("click", () => {
 })
 buttonNewItemPopup.addEventListener("click", () => {
   // TODO test
-  nameInputNewItemPopup.value = "test_item"
-  linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
+  //nameInputNewItemPopup.value = "test_item"
+  //linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
   // TODO test
   openPopup(popupNewItem)
 })
@@ -117,14 +117,14 @@ initialCards.forEach((card) => {
   addNewCardAfter(card)
 })
 
-enableValidation({
+const VALIDATION_CONFIG = {
   formSelector: ".form",
   inputSelector: ".form__item",
   submitButtonSelector: ".form__button",
   inactiveButtonClass: "form__button_disabled",
   inputErrorClass: "form__item_type_error",
-  errorClass: "form__item_type_error",
-})
-// обработчики закрытий popup в отдельном модуле modal.js
+  errorClass: "form__error-message__active",
+}
 
+enableValidation(configValidation)
 /* main code */
