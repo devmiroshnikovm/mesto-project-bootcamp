@@ -172,7 +172,11 @@ export async function sendRequestToDeleteCard(id) {
   }
 }
 
-export async function sendRequestToupdateAvatar(data) {
+export async function sendRequestToUpdateAvatar(link) {
+  const data = {
+    avatar: link,
+  }
+
   try {
     const result = await fetch(`${config.baseUrl}/users/me/avatar`, {
       method: "PATCH",

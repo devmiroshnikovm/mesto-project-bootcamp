@@ -7,7 +7,7 @@ import { initialCards } from "./initialcards.js"
 import { enableValidation } from "./validate.js"
 import { createCard } from "./card.js"
 import { openPopup, closePopup } from "./modal.js"
-import { getInitialCards, getUser, updateProfile, addLikeCard, deleteLikeCard, sendRequestToCreateNewCard, sendRequestToDeleteCard, sendRequestToupdateAvatar } from "./api.js"
+import { getInitialCards, getUser, updateProfile, addLikeCard, deleteLikeCard, sendRequestToCreateNewCard, sendRequestToDeleteCard, sendRequestToUpdateAvatar } from "./api.js"
 /* variables */
 
 const profileName = document.querySelector(".profile__title")
@@ -72,12 +72,12 @@ function hideClosestPopup(event) {
 }
 
 function addNewCardAfter(card, userId) {
-  const newItem = createCard(card, userId, handleCardClick, handleLikeButton, handleTrashButton) //handleLikeButton
+  const newItem = createCard(card, userId, handleCardClick, handleLikeButton, handleTrashButton)
   elementSelector.append(newItem)
 }
 
 function addNewCardBefore(card, userId) {
-  const newItem = createCard(card, userId, handleCardClick, handleLikeButton, handleTrashButton) //handleLikeButton
+  const newItem = createCard(card, userId, handleCardClick, handleLikeButton, handleTrashButton)
   elementSelector.prepend(newItem)
 }
 
@@ -175,7 +175,16 @@ async function handleNewItemFormSubmit(event) {
 async function handleEditAvatarSubmit(event) {
   event.preventDefault()
 
-  hideClosestPopup(event)
+  try {
+    const result = await sendRequestToUpdateAvatar(linkInputPopupAvatar.value)
+    profileAvatar.src = result.avatar
+
+    hideClosestPopup(event)
+    //обнуляем сразу всю форму
+    event.target.reset()
+  } catch (error) {
+    console.log(error)
+  }
 }
 /* functions */
 
