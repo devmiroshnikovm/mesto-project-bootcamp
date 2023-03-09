@@ -59,10 +59,10 @@ const configValidation = {
 /* variables */
 
 /* functions */
-function fillDefaultsInProfileInputs() {
+/* function fillDefaultsInProfileInputs() {
   nameInputProfilePopup.value = profileName.textContent
   jobInputProfilePopup.value = profileProfession.textContent
-}
+} */
 
 function hideClosestPopup(event) {
   const popup = event.target.closest(".popup")
@@ -121,27 +121,36 @@ async function handleTrashButton(cardElement, id, removeItem) {
   }
 }
 
-function handleProfileFormSubmit(event) {
+async function handleProfileFormSubmit(event) {
   event.preventDefault()
-  //profileName.textContent = nameInputProfilePopup.value
-  //profileProfession.textContent = jobInputProfilePopup.value
 
-  //сохранить данные на сервере
-  updateProfile(nameInputProfilePopup.value, jobInputProfilePopup.value)
-    .then((result) => {
-      //обновить html
-      profileName.textContent = result.name
-      profileProfession.textContent = result.about
+  const buttonSave = event.submitter
+  buttonSave.textContent = "Сохранение..."
 
-      hideClosestPopup(event)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  try {
+    // запустить
+    const result = await updateProfile(nameInputProfilePopup.value, jobInputProfilePopup.value)
+    profileName.textContent = result.name
+    profileProfession.textContent = result.about
+    hideClosestPopup(event) //закрывается плавно
+  } catch (error) {
+    console.log(error)
+  } finally {
+    // не важно как пройдет запрос успешно или будет catch.
+    // тут мы очищаем кнопку не важно как завершился вызов
+    setTimeout(() => {
+      //так как popup плавный
+      console.log("saved")
+      buttonSave.textContent = "Сохранить"
+    }, 1000)
+  }
 }
 
 async function handleNewItemFormSubmit(event) {
   event.preventDefault()
+
+  const buttonSave = event.submitter
+  buttonSave.textContent = "Сохранение..."
 
   const blankCard = {
     name: nameInputNewItemPopup.value,
@@ -168,6 +177,11 @@ async function handleNewItemFormSubmit(event) {
       event.target.reset()
     } catch (error) {
       console.log(error)
+    } finally {
+      setTimeout(() => {
+        console.log("saved")
+        buttonSave.textContent = "Сохранить"
+      }, 3000)
     }
   }
 }
@@ -175,17 +189,26 @@ async function handleNewItemFormSubmit(event) {
 async function handleEditAvatarSubmit(event) {
   event.preventDefault()
 
+  const buttonSave = event.submitter
+  buttonSave.textContent = "Сохранение..."
+
   try {
     const result = await sendRequestToUpdateAvatar(linkInputPopupAvatar.value)
     profileAvatar.src = result.avatar
-
     hideClosestPopup(event)
     //обнуляем сразу всю форму
     event.target.reset()
   } catch (error) {
     console.log(error)
+  } finally {
+    // Hide the spinner
+    setTimeout(() => {
+      console.log("saved")
+      buttonSave.textContent = "Сохранить"
+    }, 5000)
   }
 }
+
 /* functions */
 
 /* event listners */

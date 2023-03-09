@@ -6,19 +6,7 @@ const config = {
   },
 }
 
-/* export const getInitialCards = () => {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-
-    return Promise.reject(`Ошибка: ${res.status}`)
-  })
-} */
-
-export const getInitialCards = async () => {
+export async function getInitialCards() {
   try {
     const result = await fetch(`${config.baseUrl}/cards`, {
       method: "GET",
@@ -34,19 +22,7 @@ export const getInitialCards = async () => {
   }
 }
 
-/* export const getUser = () => {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-
-    return Promise.reject(`Ошибка: ${res.status}`)
-  })
-} */
-
-export const getUser = async () => {
+export async function getUser() {
   try {
     const result = await fetch(`${config.baseUrl}/users/me`, {
       method: "GET",
@@ -62,7 +38,7 @@ export const getUser = async () => {
   }
 }
 
-export const updateProfile = (name, about) => {
+export async function updateProfile(name, about) {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
     headers: config.headers,
@@ -78,21 +54,6 @@ export const updateProfile = (name, about) => {
     return Promise.reject(`Ошибка: ${res.status}`)
   })
 }
-
-//PUT https://nomoreparties.co/v1/cohortId/cards/likes/cardId
-
-/* export const addLikeCard = (id) => {
-  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
-    method: "PUT",
-    headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-
-    return Promise.reject(`Ошибка: ${res.status}`)
-  })
-} */
 
 export async function addLikeCard(id) {
   try {
@@ -125,19 +86,6 @@ export async function deleteLikeCard(id) {
     throw new Error(error.message)
   }
 }
-
-/* export const deleteLikeCard = (id) => {
-  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
-    method: "DELETE",
-    headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-
-    return Promise.reject(`Ошибка: ${res.status}`)
-  })
-} */
 
 export async function sendRequestToCreateNewCard(card) {
   try {
@@ -193,7 +141,7 @@ export async function sendRequestToUpdateAvatar(link) {
   }
 }
 
-const data = {
+/* const data = {
   name: "Архыз",
   link: "https://telegra.ph/file/3640e4dd9c2b1d84a0ea2.jpg",
 }
@@ -209,15 +157,9 @@ const postCard = (data) => {
 
     return Promise.reject(`Ошибка: ${res.status}`)
   })
-}
+} */
 
-for (let i = 0; i <= 10; i++) {
-  //postCard(data)
-}
-
-//postCard(data)
-
-const id = "6405edb1cf8e9f116c8a4cff"
+/* const id = "6405edb1cf8e9f116c8a4cff"
 
 const deleteCard = (id) => {
   return fetch(`${config.baseUrl}/cards/${id}`, {
@@ -230,8 +172,60 @@ const deleteCard = (id) => {
 
     return Promise.reject(`Ошибка: ${res.status}`)
   })
-}
+} */
 
 //https://telegra.ph/file/3640e4dd9c2b1d84a0ea2.jpg
 //https://pbs.twimg.com/media/E_cMvp3UUAI-la-.jpg
 //https://images-cdn.9gag.com/photo/aAg6op2_700b.jpg
+
+/* export const getInitialCards = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers,
+  }).then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`)
+  })
+} */
+
+/* export const getUser = () => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers,
+  }).then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`)
+  })
+} */
+
+//PUT https://nomoreparties.co/v1/cohortId/cards/likes/cardId
+
+/* export const addLikeCard = (id) => {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+    method: "PUT",
+    headers: config.headers,
+  }).then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`)
+  })
+} */
+
+/* export const deleteLikeCard = (id) => {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+    method: "DELETE",
+    headers: config.headers,
+  }).then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`)
+  })
+} */

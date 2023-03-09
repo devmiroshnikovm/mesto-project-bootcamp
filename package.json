@@ -69,8 +69,8 @@
     "webpack-sources": "^3.2.3"
   },
   "scripts": {
-    "build": "node build.js && webpack --mode production",
-    "dev": "node build.js && webpack serve --allowed-hosts all"
+    "build": "webpack --mode production",
+    "dev": "webpack serve --allowed-hosts all"
   },
   "author": "Mikhail",
   "license": "ISC",
