@@ -5,11 +5,11 @@ function removeItem(item) {
   item.remove()
 }
 
-function handleLikeButton(button) {
-  button.classList.toggle("elements__button-like_active")
-}
+export const createCard = (item, userId, handleCardClick, handleLikeButton, handleTrashButton) => {
+  // придет карточка с лайками
+  // мы все лайки проверим тут
+  // если в лайках есть userId покрасим
 
-export const createCard = (item, handleCardClick) => {
   // клонируем содержимое тега template
   const cardElement = cardItemInTemplate.cloneNode(true)
 
@@ -19,6 +19,9 @@ export const createCard = (item, handleCardClick) => {
   const imageCard = cardElement.querySelector(".elements__img")
   const buttonTrashCard = cardElement.querySelector(".elements__button-trash")
   const buttonLikeCard = cardElement.querySelector(".elements__button-like")
+  const countLike = cardElement.querySelector(".elements__like-count")
+  const likesInCard = item.likes
+  const cardOwner = item.owner._id
 
   // 2. заполняем cardElement (карточку)
   titleCard.textContent = item.name
@@ -27,16 +30,35 @@ export const createCard = (item, handleCardClick) => {
 
   // 3. добавляем listners
   buttonTrashCard.addEventListener("click", () => {
-    removeItem(cardElement)
+    handleTrashButton(cardElement, item._id, removeItem)
+    //removeItem(cardElement)
   })
 
-  buttonLikeCard.addEventListener("click", () => {
-    handleLikeButton(buttonLikeCard)
+  buttonLikeCard.addEventListener("click", async () => {
+    handleLikeButton(buttonLikeCard, countLike, item._id)
   })
 
   imageCard.addEventListener("click", () => {
     handleCardClick(item)
   })
 
+  // 4. красим лайки
+
+  likesInCard.forEach((like) => {
+    if (like._id === userId) {
+      buttonLikeCard.classList.add("elements__button-like_active")
+    }
+  })
+
+  //проставляем кол-во лайков
+  countLike.textContent = likesInCard.length
+
+  // 5. Проверяем кнопку удалить
+
+  if (cardOwner !== userId) {
+    console.log(true)
+    buttonTrashCard.disabled = true
+    buttonTrashCard.classList.add("elements__button-trash_disabled")
+  }
   return cardElement
 }

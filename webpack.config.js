@@ -18,6 +18,7 @@ module.exports = {
 
   mode: "development",
   devServer: {
+    allowedHosts: ["all"], //убрать бесячие сообщения в консоли
     static: path.resolve(__dirname, "./dist"),
     open: true,
     compress: true,

@@ -1,0 +1,8 @@
+.profile__image-edit_avatar-wrapper {
+  position: relative;
+  border-radius: 50%;
+}
+
+.profile__image-edit_avatar-wrapper:hover .profile__edit-avatar {
+  visibility: visible;
+}
