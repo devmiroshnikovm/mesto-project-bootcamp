@@ -6,10 +6,6 @@ function removeItem(item) {
 }
 
 export const createCard = (item, userId, handleCardClick, handleLikeButton, handleTrashButton) => {
-  // придет карточка с лайками
-  // мы все лайки проверим тут
-  // если в лайках есть userId покрасим
-
   // клонируем содержимое тега template
   const cardElement = cardItemInTemplate.cloneNode(true)
 
@@ -56,7 +52,6 @@ export const createCard = (item, userId, handleCardClick, handleLikeButton, hand
   // 5. Проверяем кнопку удалить
 
   if (cardOwner !== userId) {
-    console.log(true)
     buttonTrashCard.disabled = true
     buttonTrashCard.classList.add("elements__button-trash_disabled")
   }

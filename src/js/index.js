@@ -1,5 +1,5 @@
 /* webpack */
-import "./../pages/index.css" // добавьте импорт главного файла стилей
+import "./../pages/index.css"
 import "./../index.html"
 /* webpack */
 
@@ -41,8 +41,9 @@ const popupAvatar = document.querySelector(".popup_type_edit-avatar") //increase
 const formElementPopupAvatar = document.forms["edit-avatar"]
 const linkInputPopupAvatar = formElementPopupAvatar.querySelector('input.form__item[name="link"]')
 const buttonAvatar = document.querySelector(".profile__edit-avatar")
-
 //popup - edit avatar
+
+let userId
 
 //add items
 const elementSelector = document.querySelector(".elements__list") // find element to append
@@ -59,6 +60,7 @@ const configValidation = {
 /* variables */
 
 /* functions */
+
 /* function fillDefaultsInProfileInputs() {
   nameInputProfilePopup.value = profileName.textContent
   jobInputProfilePopup.value = profileProfession.textContent
@@ -128,10 +130,10 @@ async function handleProfileFormSubmit(event) {
   buttonSave.textContent = "Сохранение..."
 
   try {
-    // запустить
     const result = await updateProfile(nameInputProfilePopup.value, jobInputProfilePopup.value)
     profileName.textContent = result.name
     profileProfession.textContent = result.about
+
     hideClosestPopup(event) //закрывается плавно
   } catch (error) {
     console.log(error)
@@ -140,7 +142,6 @@ async function handleProfileFormSubmit(event) {
     // тут мы очищаем кнопку не важно как завершился вызов
     setTimeout(() => {
       //так как popup плавный
-      console.log("saved")
       buttonSave.textContent = "Сохранить"
     }, 1000)
   }
@@ -158,19 +159,8 @@ async function handleNewItemFormSubmit(event) {
   }
   // если в input есть что-то
   if (blankCard.name && blankCard.link) {
-    // отправить async создать карточку
-
     try {
-      const response = await sendRequestToCreateNewCard(blankCard)
-
-      const card = {
-        name: response.name,
-        link: response.link,
-        _id: response._id,
-        likes: response.likes,
-        owner: response.owner,
-      }
-
+      const card = await sendRequestToCreateNewCard(blankCard)
       addNewCardBefore(card, userId) //userId глобальная переменная
       hideClosestPopup(event)
       //обнуляем сразу всю форму
@@ -179,34 +169,61 @@ async function handleNewItemFormSubmit(event) {
       console.log(error)
     } finally {
       setTimeout(() => {
-        console.log("saved")
         buttonSave.textContent = "Сохранить"
-      }, 3000)
+      }, 1000)
     }
   }
 }
 
 async function handleEditAvatarSubmit(event) {
   event.preventDefault()
-
   const buttonSave = event.submitter
   buttonSave.textContent = "Сохранение..."
-
   try {
     const result = await sendRequestToUpdateAvatar(linkInputPopupAvatar.value)
     profileAvatar.src = result.avatar
     hideClosestPopup(event)
-    //обнуляем сразу всю форму
     event.target.reset()
   } catch (error) {
     console.log(error)
   } finally {
-    // Hide the spinner
     setTimeout(() => {
-      console.log("saved")
       buttonSave.textContent = "Сохранить"
-    }, 5000)
+    }, 1000)
   }
+}
+
+async function renderUserData() {
+  try {
+    const user = await getUser()
+    profileName.textContent = user.name
+    profileProfession.textContent = user.about
+    profileAvatar.src = user.avatar
+    profileAvatar.alt = user.name
+    nameInputProfilePopup.value = user.name
+    jobInputProfilePopup.value = user.about
+
+    return user
+  } catch (error) {
+    return error
+  }
+}
+
+async function renderCards() {
+  const [user, cards] = await Promise.all([renderUserData(), getInitialCards()])
+  cards.forEach((card) => addNewCardAfter(card, user._id))
+
+  console.log(cards)
+
+  // пример с последовательным исполнением
+  /*   try {
+    const user = await renderUserData() // одно
+    userId = user._id 
+    const cards = await getInitialCards() // потом другое
+    cards.forEach((card) => addNewCardAfter(card, userId))
+  } catch (error) {
+    console.log(error)
+  } */
 }
 
 /* functions */
@@ -222,8 +239,8 @@ buttonAvatar.addEventListener("click", () => {
 
 buttonNewItemPopup.addEventListener("click", () => {
   // TODO test
-  nameInputNewItemPopup.value = "test_item"
-  linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
+  //nameInputNewItemPopup.value = "test_item"
+  //linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
   // TODO test
   openPopup(popupNewItem)
 })
@@ -234,237 +251,15 @@ formElementPopupAvatar.addEventListener("submit", handleEditAvatarSubmit)
 /* event listners */
 
 /* main code */
-//fillDefaultsInProfileInputs(popupProfile)
-
-initialCards.forEach((card) => {
-  //addNewCardAfter(card)
-})
-
 enableValidation(configValidation)
+;(async () => {
+  try {
+    const startRenderingTime = Date.now()
+    await renderCards()
+    const renderDuration = (Date.now() - startRenderingTime) / 1000
+    console.log("renderCards completed with ", `${renderDuration}`, " seconds")
+  } catch (error) {
+    console.error(error)
+  }
+})()
 /* main code */
-
-// async
-
-let userId
-
-async function renderUserData() {
-  const user = await getUser()
-
-  profileName.textContent = user.name
-  profileProfession.textContent = user.about
-  profileAvatar.src = user.avatar
-  profileAvatar.alt = user.name
-
-  nameInputProfilePopup.value = user.name
-  jobInputProfilePopup.value = user.about
-
-  return user
-}
-
-async function renderCards() {
-  const user = await renderUserData() // одно
-  const cards = await getInitialCards() // потом другое
-
-  userId = user._id
-
-  cards.forEach((item) => {
-    const card = {
-      name: item.name,
-      link: item.link,
-      _id: item._id,
-      likes: item.likes,
-      owner: item.owner,
-    }
-
-    addNewCardAfter(card, userId)
-  })
-}
-renderCards()
-
-/* getUser()
-  .then((result) => {
-    userId = result._id
-
-    profileName.textContent = result.name
-    profileProfession.textContent = result.about
-    profileAvatar.src = result.avatar
-    profileAvatar.alt = result.name
-
-    nameInputProfilePopup.value = result.name
-    jobInputProfilePopup.value = result.about
-  })
-  .catch((err) => {
-    console.log(err)
-  }) */
-/* 
-getInitialCards()
-  .then((result) => {
-    result.forEach((item) => {
-      const card = {
-        name: item.name,
-        link: item.link,
-        _id: item._id,
-        userId: userId,
-      }
-      addNewCardAfter(card)
-    })
-  })
-  .catch((err) => {
-    console.log(err)
-  }) */
-
-//button.classList.toggle("elements__button-like_active")
-
-//test
-
-//64060d42cf8e9f116c8b3fef
-
-/* function testHandleLikeButton() {
-  let isLiked = false
-
-  function checkLike(id) {
-    return new Promise((resolve, reject) => {
-      if (!isLiked) {
-        addLikeCard(id)
-          .then((result) => {
-            isLiked = true
-            resolve(isLiked)
-          })
-          .catch(reject)
-      } else {
-        deleteLikeCard(id)
-          .then((result) => {
-            isLiked = false
-            resolve(isLiked)
-          })
-          .catch(reject)
-      }
-    })
-  }
-
-  function getIsLiked() {
-    return isLiked
-  }
-
-  return {
-    checkLike,
-    getIsLiked,
-  }
-}
-
-const like = testHandleLikeButton()
-
-like
-  .checkLike("64060d42cf8e9f116c8b3fef")
-  .then((result) => console.log(result))
-  .catch((error) => console.error(error))
-
-setTimeout(function () {
-  like
-    .checkLike("64060d42cf8e9f116c8b3fef")
-    .then((result) => console.log(result))
-    .catch((error) => console.error(error))
-}, 2000) */
-
-/* deleteLikeCard("64060d42cf8e9f116c8b3fef")
-  .then((result) => {
-    console.log(result)
-  })
-  .catch((err) => {
-    console.log(err)
-  }) */
-
-/* getInitialCards().then((result) => {
-  console.log(result[0].likes.length)
-}) */
-
-///////
-
-/* let isLiked = false //так  работает
-
-function testHandleLikeButton() {
-  //let isLiked = false //так не работает
-
-  async function toggleLike(button, id) {
-    if (!isLiked) {
-      await addLikeCard(id)
-      button.classList.toggle("elements__button-like_active")
-      isLiked = true
-    } else {
-      await deleteLikeCard(id)
-      button.classList.toggle("elements__button-like_active")
-      isLiked = false
-    }
-    return isLiked
-  }
-
-  return toggleLike
-} */
-
-/*
-
-let userId
-
-setTimeout(() => {
-  getUser()
-    .then((result) => {
-      userId = result._id
-
-      profileName.textContent = result.name
-      profileProfession.textContent = result.about
-      profileAvatar.src = result.avatar
-      profileAvatar.alt = result.name
-
-      nameInputProfilePopup.value = result.name
-      jobInputProfilePopup.value = result.about
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}, 2000)
-
-getInitialCards()
-  .then((result) => {
-    result.forEach((item) => {
-      const card = {
-        name: item.name,
-        link: item.link,
-        _id: item._id,
-        userId: userId,
-      }
-      addNewCardAfter(card)
-    })
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-
-
-  */
-/* 
-let userId
-
-async function renderUserData() {
-  const user = await getUser()
-  // мой user._id
-}
-
-setTimeout(() => {
-  renderUserData()
-}, 2000)
-
-async function renderCards() {
-  const cards = await getInitialCards()
-
-  cards.forEach((item) => {
-    const card = {
-      name: item.name,
-      link: item.link,
-      _id: item._id,
-      //userId: userId,
-    }
-    addNewCardAfter(card)
-  })
-}
-renderCards()
- */
