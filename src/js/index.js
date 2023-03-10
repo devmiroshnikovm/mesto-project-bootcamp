@@ -210,16 +210,20 @@ async function renderUserData() {
 }
 
 async function renderCards() {
-  const [user, cards] = await Promise.all([renderUserData(), getInitialCards()])
-  cards.forEach((card) => addNewCardAfter(card, user._id))
-
-  console.log(cards)
+  // promise all возвращает один единый promise, который resolve когда все промисы  resolve
+  // если хоть один promise reject - promise all - reject
+  try {
+    const [user, cards] = await Promise.all([renderUserData(), getInitialCards()])
+    cards.forEach((card) => addNewCardAfter(card, user._id))
+  } catch (error) {
+    console.log(error)
+  }
 
   // пример с последовательным исполнением
   /*   try {
-    const user = await renderUserData() // одно
+    const user = await renderUserData() // ждем одно
     userId = user._id 
-    const cards = await getInitialCards() // потом другое
+    const cards = await getInitialCards() // потом ждем другое
     cards.forEach((card) => addNewCardAfter(card, userId))
   } catch (error) {
     console.log(error)
