@@ -133,6 +133,7 @@ async function handleProfileFormSubmit(event) {
     const result = await updateProfile(nameInputProfilePopup.value, jobInputProfilePopup.value)
     profileName.textContent = result.name
     profileProfession.textContent = result.about
+    profileAvatar.alt = result.name
 
     hideClosestPopup(event) //закрывается плавно
   } catch (error) {
@@ -181,7 +182,9 @@ async function handleEditAvatarSubmit(event) {
   buttonSave.textContent = "Сохранение..."
   try {
     const result = await sendRequestToUpdateAvatar(linkInputPopupAvatar.value)
+    console.log(result)
     profileAvatar.src = result.avatar
+    profileAvatar.alt = result.name
     hideClosestPopup(event)
     event.target.reset()
   } catch (error) {
@@ -214,6 +217,7 @@ async function renderCards() {
   // если хоть один promise reject - promise all - reject
   try {
     const [user, cards] = await Promise.all([renderUserData(), getInitialCards()])
+
     cards.forEach((card) => addNewCardAfter(card, user._id))
   } catch (error) {
     console.log(error)
@@ -267,3 +271,5 @@ enableValidation(configValidation)
   }
 })()
 /* main code */
+
+//https://www.meme-arsenal.com/memes/3c7bfe0ded968ccd8aab72a1df90c63e.jpg

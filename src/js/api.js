@@ -135,6 +135,8 @@ export async function sendRequestToUpdateAvatar(link) {
       headers: config.headers,
       body: JSON.stringify(data),
     })
+    console.log(result)
+
     if (result.ok) {
       return await result.json()
     } else {
