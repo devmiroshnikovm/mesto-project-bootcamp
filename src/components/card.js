@@ -35,7 +35,7 @@ export const createCard = (item, userId, handleCardClick, handleLikeButton, hand
   })
 
   imageCard.addEventListener("click", () => {
-    handleCardClick(item)
+    handleCardClick({ name: item.name, link: item.link })
   })
 
   // 4. красим лайки

@@ -43,8 +43,6 @@ const linkInputPopupAvatar = formElementPopupAvatar.querySelector('input.form__i
 const buttonAvatar = document.querySelector(".profile__edit-avatar")
 //popup - edit avatar
 
-let userId
-
 //add items
 const elementSelector = document.querySelector(".elements__list") // find element to append
 
@@ -60,11 +58,6 @@ const configValidation = {
 /* variables */
 
 /* functions */
-
-/* function fillDefaultsInProfileInputs() {
-  nameInputProfilePopup.value = profileName.textContent
-  jobInputProfilePopup.value = profileProfession.textContent
-} */
 
 function hideClosestPopup(event) {
   const popup = event.target.closest(".popup")
@@ -84,6 +77,11 @@ function addNewCardBefore(card, userId) {
 }
 
 function handleCardClick({ name, link }) {
+  console.log(name)
+  console.log(link)
+
+  console.log(nameIncreaseImagePopup)
+
   nameIncreaseImagePopup.textContent = name
   imgIncreaseImagePopup.setAttribute("src", link)
   imgIncreaseImagePopup.setAttribute("alt", name)
@@ -162,7 +160,12 @@ async function handleNewItemFormSubmit(event) {
   if (blankCard.name && blankCard.link) {
     try {
       const card = await sendRequestToCreateNewCard(blankCard)
-      addNewCardBefore(card, userId) //userId глобальная переменная
+      // создаем карточку
+      // возвразается ответ в котором указан userID  owner
+      // так как пользователь сам создал эту карту через input
+      // userID это userID owner
+
+      addNewCardBefore(card, card.owner._id)
       hideClosestPopup(event)
       //обнуляем сразу всю форму
       event.target.reset()
@@ -217,7 +220,7 @@ async function renderCards() {
   // если хоть один promise reject - promise all - reject
   try {
     const [user, cards] = await Promise.all([renderUserData(), getInitialCards()])
-
+    console.log(user._id)
     cards.forEach((card) => addNewCardAfter(card, user._id))
   } catch (error) {
     console.log(error)
@@ -247,8 +250,8 @@ buttonAvatar.addEventListener("click", () => {
 
 buttonNewItemPopup.addEventListener("click", () => {
   // TODO test
-  //nameInputNewItemPopup.value = "test_item"
-  //linkInputNewItemPopup.value = "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg"
+  nameInputNewItemPopup.value = "test_item"
+  linkInputNewItemPopup.value = "https://timmousk.com/wp-content/uploads/2022/03/2-2.jpg"
   // TODO test
   openPopup(popupNewItem)
 })
