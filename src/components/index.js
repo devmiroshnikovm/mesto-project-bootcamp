@@ -3,11 +3,13 @@ import "./../pages/index.css"
 import "./../index.html"
 /* webpack */
 
-import { initialCards } from "./initialcards.js"
+//import { initialCards } from "./initialcards.js"
 import { enableValidation } from "./validate.js"
 import { createCard } from "./card.js"
 import { openPopup, closePopup } from "./modal.js"
 import { getInitialCards, getUser, updateProfile, addLikeCard, deleteLikeCard, sendRequestToCreateNewCard, sendRequestToDeleteCard, sendRequestToUpdateAvatar } from "./api.js"
+import { configValidation } from "./constants.js"
+import { handleSubmit } from "./utils.js"
 /* variables */
 
 const profileName = document.querySelector(".profile__title")
@@ -46,15 +48,6 @@ const buttonAvatar = document.querySelector(".profile__edit-avatar")
 //add items
 const elementSelector = document.querySelector(".elements__list") // find element to append
 
-const configValidation = {
-  formSelector: ".form",
-  inputSelector: ".form__item",
-  submitButtonSelector: ".form__button",
-  inactiveButtonClass: "form__button_disabled",
-  inputErrorClass: "form__item_type_error",
-  errorClass: "form__error-message__active",
-}
-
 /* variables */
 
 /* functions */
@@ -77,11 +70,6 @@ function addNewCardBefore(card, userId) {
 }
 
 function handleCardClick({ name, link }) {
-  console.log(name)
-  console.log(link)
-
-  console.log(nameIncreaseImagePopup)
-
   nameIncreaseImagePopup.textContent = name
   imgIncreaseImagePopup.setAttribute("src", link)
   imgIncreaseImagePopup.setAttribute("alt", name)
@@ -121,7 +109,18 @@ async function handleTrashButton(cardElement, id, removeItem) {
   }
 }
 
-async function handleProfileFormSubmit(event) {
+// пример с универсальной функцией
+function handleProfileFormSubmit(event) {
+  async function makeRequest() {
+    const result = await updateProfile(nameInputProfilePopup.value, jobInputProfilePopup.value)
+    profileName.textContent = result.name
+    profileProfession.textContent = result.about
+    profileAvatar.alt = result.name
+  }
+  handleSubmit(makeRequest, event, hideClosestPopup)
+}
+
+/* async function handleProfileFormSubmit(event) {
   event.preventDefault()
 
   const buttonSave = event.submitter
@@ -144,7 +143,7 @@ async function handleProfileFormSubmit(event) {
       buttonSave.textContent = "Сохранить"
     }, 1000)
   }
-}
+} */
 
 async function handleNewItemFormSubmit(event) {
   event.preventDefault()
@@ -185,7 +184,7 @@ async function handleEditAvatarSubmit(event) {
   buttonSave.textContent = "Сохранение..."
   try {
     const result = await sendRequestToUpdateAvatar(linkInputPopupAvatar.value)
-    console.log(result)
+
     profileAvatar.src = result.avatar
     profileAvatar.alt = result.name
     hideClosestPopup(event)
@@ -202,6 +201,7 @@ async function handleEditAvatarSubmit(event) {
 async function renderUserData() {
   try {
     const user = await getUser()
+
     profileName.textContent = user.name
     profileProfession.textContent = user.about
     profileAvatar.src = user.avatar
@@ -220,7 +220,7 @@ async function renderCards() {
   // если хоть один promise reject - promise all - reject
   try {
     const [user, cards] = await Promise.all([renderUserData(), getInitialCards()])
-    console.log(user._id)
+
     cards.forEach((card) => addNewCardAfter(card, user._id))
   } catch (error) {
     console.log(error)
@@ -241,6 +241,9 @@ async function renderCards() {
 
 /* event listners */
 buttonProfilePopup.addEventListener("click", () => {
+  nameInputProfilePopup.value = profileName.textContent
+  jobInputProfilePopup.value = profileProfession.textContent
+
   openPopup(popupProfile)
 })
 
