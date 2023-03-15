@@ -253,8 +253,8 @@ buttonAvatar.addEventListener("click", () => {
 
 buttonNewItemPopup.addEventListener("click", () => {
   // TODO test
-  nameInputNewItemPopup.value = "test_item"
-  linkInputNewItemPopup.value = "https://timmousk.com/wp-content/uploads/2022/03/2-2.jpg"
+  //nameInputNewItemPopup.value = "test_item"
+  //linkInputNewItemPopup.value = "https://timmousk.com/wp-content/uploads/2022/03/2-2.jpg"
   // TODO test
   openPopup(popupNewItem)
 })
